@@ -1,4 +1,4 @@
-update=Mon 27 Mar 2017 02:18:05 PM CDT
+update=Thu 18 May 2017 05:15:47 PM CDT
 version=1
 last_client=kicad
 [pcbnew]
@@ -68,4 +68,4 @@ LibName26=opto
 LibName27=atmel
 LibName28=contrib
 LibName29=valves
-LibName30=/home/zach/Documents/NeuroTinker/Products/NeuroTinker_schematic_symbols
+LibName30=Schematic_Lib/NeuroTinker_schematic_symbols
