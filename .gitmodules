@@ -1,0 +1,6 @@
+[submodule "HARDWARE/Schematic_Lib"]
+	path = HARDWARE/Schematic_Lib
+	url = https://github.com/NeuroTinker/Schematic_Lib
+[submodule "libopencm3"]
+	path = libopencm3
+	url = https://github.com/NeuroTinker/libopencm3
