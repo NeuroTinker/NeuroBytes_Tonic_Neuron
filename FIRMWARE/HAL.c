@@ -1,8 +1,5 @@
 #include "HAL.h"
 
-volatile uint8_t toggle = 0;
-volatile uint8_t tick = 0;
-extern volatile uint8_t main_tick = 0;
 
 void clock_setup(void)
 {
@@ -15,6 +12,63 @@ void sys_tick_handler(void)
 {
     // gpio_toggle(PORT_AXON_OUT, PIN_AXON_OUT);
 }
+
+void usart_setup(void)
+{
+	gpio_mode_setup(PORT_USART, GPIO_MODE_AF, GPIO_PUPD_NONE, PIN_USART_TX);
+	gpio_set_af(PORT_USART, GPIO_AF0, PIN_USART_TX);
+
+	// USART_BRR: set baud rate
+	MMIO32((USART2_BASE) + 0x0C) = 115200;
+	
+	// default 8-bit character length
+	// default 1 stop bit
+	// default no parity
+	// default no flow control
+
+ 	// USART_CR1: enable USART2
+	MMIO32((USART2_BASE) + 0x00) |= (1<<0);
+}
+
+void usart_send(uint8_t word)
+{
+	if (MMIO32((USART2_BASE) + 0x1C) && (1<<7) == 0) // ensure transmit register is empty
+	{
+		MMIO32((USART2_BASE) + 0x00) |= (1<<3); // enable transmit
+		MMIO32((USART2_BASE) + 0x28) = word; // write data to USART_TDR
+	}
+
+}
+
+/*
+int _write(int file, char *ptr, int len)
+{
+	int i;
+
+	if (file == STDOUT_FILENO || file == STDERR_FILENO) 
+	{
+		for (i = 0; i < len; i++) 
+		{
+			if (ptr[i] == '\n') 
+			{
+				while ((USART_SR(USART2) & USART_SR_TXE) == 0);
+				USART_DR(USART2) = ('\r' & USART_DR_MASK);
+
+//				usart_send_blocking(USART_CONSOLE, '\r');
+//					usart_wait_send_ready(usart)
+//					usart_send(usart, data)
+			}
+
+//			usart_send_blocking(USART_CONSOLE, ptr[i]);
+				while ((USART_SR(USART2) & USART_SR_TXE) == 0);
+				USART_DR(USART2) = (ptr[i] & USART_DR_MASK);
+		}
+		return i;
+	}
+	errno = EIO;
+	return -1;
+}
+*/
 
 void systick_setup(int xms)
 {

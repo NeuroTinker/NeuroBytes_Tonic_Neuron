@@ -1,10 +1,9 @@
-#include <libopencm3/stm32/rcc.h>
+/*#include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/timer.h>
 #include <libopencm3/cm3/nvic.h>
 #include <libopencm3/cm3/systick.h>
-#include <libopencm3/stm32/exti.h>
-
+*/
 #include "HAL.h"
 
 int main(void)
@@ -14,10 +13,13 @@ int main(void)
 	tim_setup();
 	setLED(0);
 	systick_setup(100000);
+	usart_setup();
+
 
 	int val = 10;	
 	for(;;)
 	{
 		setLED(val);
+		usart_send(10);
 	}
 }
