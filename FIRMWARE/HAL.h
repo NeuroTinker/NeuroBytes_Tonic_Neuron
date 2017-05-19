@@ -7,10 +7,6 @@
 #include <libopencm3/cm3/systick.h>
 #include <libopencm3/cm3/nvic.h>
 
-#include <errno.h>
-#include <stdio.h>
-#include <unistd.h>
-
 #define PORT_LED		GPIOB
 #define PIN_LED			GPIO0 //TIM2_CH2/3
 
@@ -26,6 +22,8 @@ static const uint16_t gamma_lookup[1024];
 
 void usart_setup(void);
 void usart_send(uint8_t word);
+void usart_print(char *msg);
+int _write(int file, char *ptr, int len);
 void systick_setup(int xms);
 void clock_setup(void);
 void gpio_setup(void);

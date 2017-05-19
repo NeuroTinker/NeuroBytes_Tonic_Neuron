@@ -1,5 +1,5 @@
 #include "HAL.h"
-
+#include <string.h>
 
 void clock_setup(void)
 {
@@ -18,67 +18,45 @@ void usart_setup(void)
 	gpio_mode_setup(PORT_USART, GPIO_MODE_AF, GPIO_PUPD_NONE, PIN_USART_TX);
 	gpio_set_af(PORT_USART, GPIO_AF0, PIN_USART_TX);
 
+	rcc_periph_clock_enable(RCC_USART2);
+	
 	// USART_BRR: set baud rate
-	MMIO32((USART2_BASE) + 0x0C) = 115200;
+	MMIO32((USART2_BASE) + 0x0C) = 139; // 16 MHz / 115200 baud
 	
 	// default 8-bit character length
 	// default 1 stop bit
 	// default no parity
 	// default no flow control
 
- 	// USART_CR1: enable USART2
+	// USART_CR1: enable USART2
 	MMIO32((USART2_BASE) + 0x00) |= (1<<0);
 }
 
 void usart_send(uint8_t word)
 {
-	if (MMIO32((USART2_BASE) + 0x1C) && (1<<7) == 0) // ensure transmit register is empty
-	{
+	while ((MMIO32((USART2_BASE) + 0x1C) & (1<<7)) == 0); // ensure transmit register is empty
+
 		MMIO32((USART2_BASE) + 0x00) |= (1<<3); // enable transmit
-		MMIO32((USART2_BASE) + 0x28) = word; // write data to USART_TDR
-	}
-
+		MMIO32((USART2_BASE) + 0x28) = (word & 0xFF); // write data to USART_TDR
 }
 
-/*
-int _write(int file, char *ptr, int len)
+void usart_print(char *msg)
 {
+	int len = strlen(msg);
 	int i;
-
-	if (file == STDOUT_FILENO || file == STDERR_FILENO) 
+	for (i=0;i<len;i++)
 	{
-		for (i = 0; i < len; i++) 
-		{
-			if (ptr[i] == '\n') 
-			{
-				while ((USART_SR(USART2) & USART_SR_TXE) == 0);
-				USART_DR(USART2) = ('\r' & USART_DR_MASK);
-
-//				usart_send_blocking(USART_CONSOLE, '\r');
-//					usart_wait_send_ready(usart)
-//					usart_send(usart, data)
-			}
-
-//			usart_send_blocking(USART_CONSOLE, ptr[i]);
-				while ((USART_SR(USART2) & USART_SR_TXE) == 0);
-				USART_DR(USART2) = (ptr[i] & USART_DR_MASK);
-		}
-		return i;
+		usart_send((uint8_t)*msg++);
 	}
-	errno = EIO;
-	return -1;
 }
-*/
 
 void systick_setup(int xms)
 {
-	
     systick_set_clocksource(STK_CSR_CLKSOURCE_EXT);
     STK_CVR = 0;
     systick_set_reload(2000 * xms);
     systick_counter_enable();
     systick_interrupt_enable();
-	
 }
 
 void gpio_setup(void)
@@ -131,7 +109,7 @@ void tim_setup(void)
 
 void setLED(uint16_t val)
 {
-	if (val <= 1023) 
+	if (val <= 1023)
 	{
 		timer_set_oc_value(TIM2, TIM_OC2, gamma_lookup[val]);
 	}
@@ -143,8 +121,9 @@ void setLED(uint16_t val)
 
 
 static const uint16_t gamma_lookup[1024] = {
-	/*	Gamma = 2, input range = 0-1023, output range = 0-9600 */
-    0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  2,  2,  2,
+	//	Gamma = 2, input range = 0-1023, output range = 0-9600 
+   
+	 0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  2,  2,  2,
     2,  3,  3,  3,  4,  4,  4,  5,  5,  6,  6,  7,  7,  8,  8,  9,
     9, 10, 11, 11, 12, 13, 13, 14, 15, 15, 16, 17, 18, 19, 19, 20,
    21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
