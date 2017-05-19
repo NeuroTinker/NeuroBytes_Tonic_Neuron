@@ -71,12 +71,14 @@ void gpio_setup(void)
 	/*	Set up LED pin:
 		Alternative Function Mode with no pullup/pulldown
 		Output options: push-pull, high speed
-		PIN_LED (PB0): AF2, TIM2_CH4
-	*/
-	
+		PIN_LED (PB0): AF2, TIM2_CH4 */	
 	gpio_mode_setup(PORT_LED, GPIO_MODE_AF, GPIO_PUPD_NONE, PIN_LED);
 	gpio_set_output_options(PORT_LED, GPIO_OTYPE_PP, GPIO_OSPEED_HIGH, PIN_LED);
 	gpio_set_af(PORT_LED, GPIO_AF2, PIN_LED); //TIM2_CH2
+
+	/*	Set up touch sensor pins initially as outputs with pulldowns active */
+	gpio_mode_setup(PORT_TOUCH, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLDOWN, PIN_TOUCH0 | PIN_TOUCH1);
+
 }
 
 void tim_setup(void)
