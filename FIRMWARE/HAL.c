@@ -6,6 +6,11 @@ void clock_setup(void)
 	// STM32F0 command:	rcc_clock_setup_in_hsi_out_48mhz();
 	rcc_set_sysclk_source(RCC_HSI16);
 	rcc_osc_on(RCC_HSI16);
+
+//	default PLL multiplier: x3
+//	note: this seems to be a bad idea
+//	rcc_set_sysclk_source(RCC_PLL);
+//	rcc_osc_on(RCC_PLL);
 }
 
 void sys_tick_handler(void)
@@ -85,7 +90,6 @@ void tim_setup(void)
 {
 	/* 	Enable and reset TIM2 clock */
 	rcc_periph_clock_enable(RCC_TIM2);
-	//timer_reset(TIM2);
 
 	/* 	Set up TIM2 mode to no clock divider ratio, edge alignment, and up direction */
 	timer_set_mode(TIM2, TIM_CR1_CKD_CK_INT, TIM_CR1_CMS_EDGE, TIM_CR1_DIR_UP);
