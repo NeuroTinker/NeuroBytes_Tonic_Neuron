@@ -25,10 +25,6 @@ typedef enum {
     SENSOR1
 } sensor_t;
 
-void usart_setup(void);
-void usart_send(uint8_t word);
-void usart_print(char *msg);
-int _write(int file, char *ptr, int len);
 void systick_setup(int xms);
 void clock_setup(void);
 void gpio_setup(void);

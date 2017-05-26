@@ -79,7 +79,14 @@ int main(void)
 	tim_setup();
 	setLED(0);
 	systick_setup(100000);
-	
+	usart_setup();
+
+	char strDisp[20];
+	int i;
+	for (i=0;i<20;i++)
+	{
+		strDisp[i] = 0;
+	}
 	int val;
 	
 	for(;;)
@@ -88,5 +95,8 @@ int main(void)
 	
 		setLED((val) * 100);
 
+		mini_snprintf(strDisp, 20, "%d\r\n",val);
+		usart_print(strDisp);
+	
 	}
 }
