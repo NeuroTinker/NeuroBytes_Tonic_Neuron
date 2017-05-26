@@ -53,10 +53,12 @@ int get_touch(sensor_t sensor)
 	/*	set pin pullup high */
 	gpio_mode_setup(PORT_TOUCH, GPIO_MODE_AF, GPIO_PUPD_PULLUP, pin);
 	/*	wait a few cycles to make sure we get the whole range */
+	gpio_toggle(PORT_USART, PIN_USART_RX);
 	for (i=0;i<10;i++)
 	{
 		__asm__("nop");
 	}
+	gpio_toggle(PORT_USART, PIN_USART_RX);
 	return(MMIO32((TIM21_BASE) + 0x34)); //adds current input capture register value to accumulator
 }
 
@@ -80,6 +82,9 @@ int main(void)
 	setLED(0);
 	systick_setup(100000);
 	usart_setup();
+
+	// debug
+	gpio_mode_setup(PORT_USART, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLDOWN, PIN_USART_RX);
 
 	char strDisp[20];
 	int i;
