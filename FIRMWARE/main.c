@@ -84,47 +84,51 @@ int main(void)
 	
 	for(;;)
 	{
-		slider_position = get_slider_position();
-		
-		current_slider_position = slider_position;
-		if (current_slider_position + prev_slider_position != prev_slider_sum){
-			if (current_slider_position - prev_slider_position == 1){
-				val += 1;
-				gpio_toggle(PORT_AXON1_EX, PIN_AXON1_EX);
-				prev_slider_sum = current_slider_position + prev_slider_position;
-			} else if (current_slider_position - prev_slider_position == -1){
-				val -= 1;
-				prev_slider_sum = current_slider_position + prev_slider_position;
-			}
-		}
-		prev_slider_position = current_slider_position;
+		if (main_tick == 1){
 
-		if (val < 0){
-			val = 0;
-		} else if (val > 8){
-			val = 8;
-		}
+			main_tick = 0;
 
-		
-		/*
-		if (slider_position == current_slider_position){
-			current_slider_time++;
-		} else if (slider_position == prev_slider_position){
-			current_slider_time = 0;
-		} else{
-			prev_slider_position = current_slider_position;
-			prev_slider_time = current_slider_time;
+			slider_position = get_slider_position();
+			
 			current_slider_position = slider_position;
+			if (current_slider_position + prev_slider_position != prev_slider_sum){
+				if (current_slider_position - prev_slider_position == 1){
+					val += 5;
+					gpio_toggle(PORT_AXON1_EX, PIN_AXON1_EX);
+					prev_slider_sum = current_slider_position + prev_slider_position;
+				} else if (current_slider_position - prev_slider_position == -1){
+					val -= 5;
+					prev_slider_sum = current_slider_position + prev_slider_position;
+				}
+			}
+			prev_slider_position = current_slider_position;
+
+			if (val < 0){
+				val = 0;
+			} else if (val > 200){
+				val = 200;
+			}
+
+			
+			/*
+			if (slider_position == current_slider_position){
+				current_slider_time++;
+			} else if (slider_position == prev_slider_position){
+				current_slider_time = 0;
+			} else{
+				prev_slider_position = current_slider_position;
+				prev_slider_time = current_slider_time;
+				current_slider_position = slider_position;
+			}
+			*/
+
+			/*
+				Change val if slider position:
+				1. had previous and current values for at least 1 ms
+				2. previous and current values are 1 apart
+			*/
+		
+			setLED(val);
 		}
-		*/
-
-		/*
-			Change val if slider position:
-			1. had previous and current values for at least 1 ms
-			2. previous and current values are 1 apart
-		*/
-	
-		setLED((val) * 100);
-
 	}
 }

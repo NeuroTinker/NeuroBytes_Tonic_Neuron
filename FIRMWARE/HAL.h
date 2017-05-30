@@ -33,6 +33,7 @@ typedef enum {
 
 extern volatile int sensor0_time;
 extern volatile int sensor1_time;
+extern volatile int main_tick;
 
 void usart_setup(void);
 void usart_send(uint8_t word);

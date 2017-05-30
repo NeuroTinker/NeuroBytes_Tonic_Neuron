@@ -4,6 +4,8 @@
 uint8_t touch_tick = 0;
 volatile int sensor0_time = 0;
 volatile int sensor1_time = 0;
+volatile int main_tick = 0;
+uint32_t main_tick_count = 0;
 
 void clock_setup(void)
 {
@@ -39,6 +41,11 @@ void sys_tick_handler(void)
         default:
             touch_tick = 0;
             break;
+    }
+
+    if(main_tick_count++ >= 50){
+        main_tick = 1;
+        main_tick_count = 0;
     }
 }
 
