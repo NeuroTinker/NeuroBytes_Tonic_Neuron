@@ -14,6 +14,12 @@
 #define PIN_TOUCH0		GPIO10 //TIM21_CH1
 #define PIN_TOUCH1		GPIO3 //TIM21_CH2
 
+#define PORT_AXON1_EX   GPIOB
+#define PORT_AXON1_IN   GPIOB
+
+#define PIN_AXON1_EX    GPIO6
+#define PIN_AXON1_IN    GPIO7
+
 #define PORT_USART		GPIOB
 #define PIN_USART_TX	GPIO6
 #define PIN_USART_RX	GPIO7
@@ -25,11 +31,14 @@ typedef enum {
     SENSOR1
 } sensor_t;
 
+extern volatile int sensor0_time;
+extern volatile int sensor1_time;
+
 void usart_setup(void);
 void usart_send(uint8_t word);
 void usart_print(char *msg);
 int _write(int file, char *ptr, int len);
-void systick_setup(int xms);
+void systick_setup(int xus);
 void clock_setup(void);
 void gpio_setup(void);
 void tim_setup(void);

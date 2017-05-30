@@ -9,11 +9,8 @@
 #include "mini-printf.h"
 
 
-int get_touch(sensor_t sensor)
+void start_touch(sensor_t sensor)
 {
-/*	Starts the touch sensor timer (TIM21) on the appropriate pin. Waits a bit for capture on pin. 
-	Captures raw sensor value. Repeats for [samples] iterations. Blocking code. */
-
 	int i, pin, tim_af;
 
 	if (sensor == SENSOR0) 
@@ -44,32 +41,28 @@ int get_touch(sensor_t sensor)
 	//	IC1F left at 0000, so sampling is done at clock speed with no digital filtering
 	//	CC1P/CCNP left at 00, so trigger happens on rising edge
 	//	IC1PS bits left at 00, no input prescaling	
- 	  /*	TIM21 prescaler (TIMx_PSC): */
-	MMIO32((TIM21_BASE) + 0x28) = 0; //prescaler = clk
+
 	/*	Enable capture */
 	MMIO32((TIM21_BASE) + 0x20) |= (1<<0);
   	 	/*	Enable TIM21 counter: */
    	MMIO32((TIM21_BASE) + 0x00) |= (1<<0);
 	/*	set pin pullup high */
 	gpio_mode_setup(PORT_TOUCH, GPIO_MODE_AF, GPIO_PUPD_PULLUP, pin);
-	/*	wait a few cycles to make sure we get the whole range */
-	for (i=0;i<10;i++)
-	{
-		__asm__("nop");
-	}
+}
+
+int get_touch(sensor_t sensor)
+{
 	return(MMIO32((TIM21_BASE) + 0x34)); //adds current input capture register value to accumulator
 }
 
 int get_slider_position(void)
 {
-	int val0, val1;
-	val0 = get_touch(SENSOR0);
-	val1 = get_touch(SENSOR1);
-	if ((val1 - val0) < -4)
+
+	if ((sensor1_time - sensor0_time) < -4)
 	{
 		return 0;
 	}
-	return (4 - (val0 - val1));
+	return (4 - (sensor0_time - sensor1_time));
 }
 
 int main(void)
@@ -78,13 +71,58 @@ int main(void)
 	gpio_setup();
 	tim_setup();
 	setLED(0);
-	systick_setup(100000);
+	systick_setup(100);
 	
-	int val;
+	int val = 0;
+	int slider_position;
+	int prev_slider_position = 0;
+	int current_slider_position = 0;
+	int prev_slider_movement = 0;
+	int prev_slider_sum = 0;
+	uint8_t prev_slider_time;
+	uint8_t current_slider_time;
 	
 	for(;;)
 	{
-		val = get_slider_position();
+		slider_position = get_slider_position();
+		
+		current_slider_position = slider_position;
+		if (current_slider_position + prev_slider_position != prev_slider_sum){
+			if (current_slider_position - prev_slider_position == 1){
+				val += 1;
+				gpio_toggle(PORT_AXON1_EX, PIN_AXON1_EX);
+				prev_slider_sum = current_slider_position + prev_slider_position;
+			} else if (current_slider_position - prev_slider_position == -1){
+				val -= 1;
+				prev_slider_sum = current_slider_position + prev_slider_position;
+			}
+		}
+		prev_slider_position = current_slider_position;
+
+		if (val < 0){
+			val = 0;
+		} else if (val > 8){
+			val = 8;
+		}
+
+		
+		/*
+		if (slider_position == current_slider_position){
+			current_slider_time++;
+		} else if (slider_position == prev_slider_position){
+			current_slider_time = 0;
+		} else{
+			prev_slider_position = current_slider_position;
+			prev_slider_time = current_slider_time;
+			current_slider_position = slider_position;
+		}
+		*/
+
+		/*
+			Change val if slider position:
+			1. had previous and current values for at least 1 ms
+			2. previous and current values are 1 apart
+		*/
 	
 		setLED((val) * 100);
 

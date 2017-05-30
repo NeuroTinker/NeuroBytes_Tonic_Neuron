@@ -1,6 +1,10 @@
 #include "HAL.h"
 #include <string.h>
 
+uint8_t touch_tick = 0;
+volatile int sensor0_time = 0;
+volatile int sensor1_time = 0;
+
 void clock_setup(void)
 {
 	// STM32F0 command:	rcc_clock_setup_in_hsi_out_48mhz();
@@ -14,8 +18,28 @@ void clock_setup(void)
 }
 
 void sys_tick_handler(void)
-{
-    // gpio_toggle(PORT_AXON_OUT, PIN_AXON_OUT);
+{    
+    switch (touch_tick){
+        case 0:
+            start_touch(SENSOR0);
+            touch_tick++;
+            break;
+        case 1:
+            sensor0_time = get_touch(SENSOR0);
+            touch_tick++;
+            break;
+        case 2:
+            start_touch(SENSOR1);
+            touch_tick++;
+            break;
+        case 3:
+            sensor1_time = get_touch(SENSOR1);
+            touch_tick = 0;
+            break;
+        default:
+            touch_tick = 0;
+            break;
+    }
 }
 
 void usart_setup(void)
@@ -55,11 +79,11 @@ void usart_print(char *msg)
 	}
 }
 
-void systick_setup(int xms)
+void systick_setup(int xus)
 {
     systick_set_clocksource(STK_CSR_CLKSOURCE_EXT);
     STK_CVR = 0;
-    systick_set_reload(2000 * xms);
+    systick_set_reload(2 * xus);
     systick_counter_enable();
     systick_interrupt_enable();
 }
@@ -71,7 +95,7 @@ void gpio_setup(void)
 	rcc_periph_clock_enable(RCC_GPIOB);
 	rcc_periph_clock_enable(RCC_GPIOC);
 
-	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_SYSCFGEN); // this line took a long time
+	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_SYSCFGEN);
 
 	/*	Set up LED pin:
 		Alternative Function Mode with no pullup/pulldown
@@ -83,6 +107,8 @@ void gpio_setup(void)
 
 	/*	Set up touch sensor pins initially as outputs with pulldowns active */
 	gpio_mode_setup(PORT_TOUCH, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLDOWN, PIN_TOUCH0 | PIN_TOUCH1);
+
+    gpio_mode_setup(PORT_AXON1_EX, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLDOWN, PIN_AXON1_EX);
 
 }
 
@@ -111,6 +137,10 @@ void tim_setup(void)
 	
 	/*	Enable counter */
 	timer_enable_counter(TIM2);
+	
+ 	  /*	TIM21 prescaler (TIMx_PSC): */
+	MMIO32((TIM21_BASE) + 0x28) = 0; //prescaler = clk
+
 }
 
 void setLED(uint16_t val)
