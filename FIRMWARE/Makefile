@@ -19,7 +19,7 @@
 
 BINARY = main
 
-OBJS = HAL.o mini-printf.o
+OBJS = HAL.o mini-printf.o comm.o neuron.o
 
 OPENCM3_DIR = ../libopencm3
 

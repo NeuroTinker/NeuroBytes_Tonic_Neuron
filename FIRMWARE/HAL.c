@@ -1,10 +1,12 @@
 #include "HAL.h"
 #include <string.h>
+#include "comm.h"
+
 
 uint8_t touch_tick = 0;
 volatile int sensor0_time = 0;
 volatile int sensor1_time = 0;
-volatile int main_tick = 0;
+volatile uint8_t main_tick = 0;
 uint32_t main_tick_count = 0;
 
 void clock_setup(void)
@@ -47,6 +49,9 @@ void sys_tick_handler(void)
         main_tick = 1;
         main_tick_count = 0;
     }
+
+    readInputs();
+	write();
 }
 
 void usart_setup(void)
@@ -117,6 +122,48 @@ void gpio_setup(void)
 
     gpio_mode_setup(PORT_AXON1_EX, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLDOWN, PIN_AXON1_EX);
 
+    setAsInput(PORT_AXON1_IN, PIN_AXON1_IN);
+    setAsOutput(PORT_AXON1_EX, PIN_AXON1_EX);
+
+    // enable external interrupts
+	nvic_enable_irq(NVIC_EXTI0_1_IRQ);
+	nvic_enable_irq(NVIC_EXTI2_3_IRQ);
+	nvic_enable_irq(NVIC_EXTI4_15_IRQ);
+
+	nvic_set_priority(NVIC_EXTI0_1_IRQ, 0);
+	nvic_set_priority(NVIC_EXTI2_3_IRQ, 0);
+	nvic_set_priority(NVIC_EXTI4_15_IRQ, 0);
+
+}
+
+void setAsInput(uint32_t port, uint32_t pin)
+{
+	// setup gpio as an input pin
+	gpio_mode_setup(port, GPIO_MODE_INPUT, GPIO_PUPD_PULLDOWN, pin);
+
+	// setup interrupt for the pin going high
+	exti_select_source(pin, port);
+	exti_set_trigger(pin, EXTI_TRIGGER_RISING);
+	exti_enable_request(pin);
+	exti_reset_request(pin);
+}
+
+void setAsOutput(uint32_t port, uint32_t pin)
+{
+	// disable input interrupts
+	exti_disable_request(pin);
+
+	// setup gpio as an output pin. pulldown
+	gpio_mode_setup(port, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLDOWN, pin);
+}
+
+void exti4_15_isr(void)
+{
+    if ((EXTI_PR & PIN_AXON1_IN) != 0){
+        // pin 7
+		//active_input_pins[0] = PIN_AXON1_IN;
+		EXTI_PR |= PIN_AXON1_IN;
+	}
 }
 
 void tim_setup(void)

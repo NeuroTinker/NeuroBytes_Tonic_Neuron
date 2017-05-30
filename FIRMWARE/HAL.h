@@ -4,8 +4,11 @@
 #include <libopencm3/stm32/rcc.h>
 #include <libopencm3/stm32/gpio.h>
 #include <libopencm3/stm32/timer.h>
-#include <libopencm3/cm3/systick.h>
 #include <libopencm3/cm3/nvic.h>
+#include <libopencm3/cm3/systick.h>
+#include <libopencm3/stm32/exti.h>
+
+#include "comm.h"
 
 #define PORT_LED		GPIOB
 #define PIN_LED			GPIO0 //TIM2_CH2/3
@@ -24,8 +27,6 @@
 #define PIN_USART_TX	GPIO6
 #define PIN_USART_RX	GPIO7
 
-static const uint16_t gamma_lookup[1024];
-
 typedef enum {
     SENSOR0,
     SENSOR1
@@ -33,16 +34,18 @@ typedef enum {
 
 extern volatile int sensor0_time;
 extern volatile int sensor1_time;
-extern volatile int main_tick;
+extern volatile uint8_t main_tick;
+extern volatile uint8_t tick;
+static const uint16_t gamma_lookup[1024];
 
-void usart_setup(void);
-void usart_send(uint8_t word);
-void usart_print(char *msg);
-int _write(int file, char *ptr, int len);
-void systick_setup(int xus);
+
+void systick_setup(int xms);
 void clock_setup(void);
 void gpio_setup(void);
 void tim_setup(void);
+void LEDFullWhite(void);
 void setLED(uint16_t val);
+void setAsInput(uint32_t port, uint32_t pin);
+void setAsOutput(uint32_t port, uint32_t pin);
 
 #endif
