@@ -30,33 +30,31 @@ void start_touch(sensor_t sensor)
 	{
 		pin = PIN_TOUCH1;
 	}
-
-	/*	Set pin as AF/TIM21 channel with pulldown on and wait for it to go low */
+	
+	//	Set pin as AF/TIM21 channel with pulldown on and wait for it to go low 
 	gpio_mode_setup(PORT_TOUCH, GPIO_MODE_AF, GPIO_PUPD_PULLDOWN, pin);
 	gpio_set_af(PORT_TOUCH, GPIO_AF0, pin);
 	
-   	 /*	Enable and reset TIM21: */
+   	 
    	 MMIO32((RCC_BASE) + 0x34) |= (1<<2); //Enable TIM21
    	 MMIO32((RCC_BASE) + 0x24) |= (1<<2); //Set reset bit, TIM21
    	 MMIO32((RCC_BASE) + 0x24) &= ~(1<<2); //Clear reset bit, TIM21
 	
-  	/*	TIM21 control register 1 (TIMx_CR1): */
+  	//	TIM21 control register 1 (TIMx_CR1):
 	//	Edge-aligned (default setting)
   	//	No clock division (default setting)
   	//	Up direction (default setting)
 
-	/*	TIM21 capture/compare mode register (TIMx_CCMR1) */
+	//	TIM21 capture/compare mode register (TIMx_CCMR1)
 	MMIO32((TIM21_BASE) + 0x18) |= (1<<sensor); //Compare/Capture 1 selection (bit 0 for PIN_TOUCH0, bit1 for PIN_TOUCH1)
 	//	IC1F left at 0000, so sampling is done at clock speed with no digital filtering
 	//	CC1P/CCNP left at 00, so trigger happens on rising edge
 	//	IC1PS bits left at 00, no input prescaling	
-
-	/*	Enable capture */
-	MMIO32((TIM21_BASE) + 0x20) |= (1<<0);
-  	 	/*	Enable TIM21 counter: */
-   	MMIO32((TIM21_BASE) + 0x00) |= (1<<0);
-	/*	set pin pullup high */
-	gpio_mode_setup(PORT_TOUCH, GPIO_MODE_AF, GPIO_PUPD_PULLUP, pin);
+	
+	MMIO32((TIM21_BASE) + 0x20) |= (1<<0); // enable capture
+   	MMIO32((TIM21_BASE) + 0x00) |= (1<<0); // enable TIM21 counter
+	gpio_mode_setup(PORT_TOUCH, GPIO_MODE_AF, GPIO_PUPD_PULLUP, pin); // set pin pullup hight
+	
 }
 
 int get_touch(sensor_t sensor)
@@ -165,7 +163,7 @@ int main(void)
 			if (current_slider_position + prev_slider_position != prev_slider_sum){
 				if (current_slider_position - prev_slider_position == 1){
 					val += 5;
-					gpio_toggle(PORT_AXON1_EX, PIN_AXON1_EX);
+					//gpio_toggle(PORT_AXON1_EX, PIN_AXON1_EX);
 					prev_slider_sum = current_slider_position + prev_slider_position;
 				} else if (current_slider_position - prev_slider_position == -1){
 					val -= 5;
@@ -179,8 +177,8 @@ int main(void)
 			} else if (val > 200){
 				val = 200;
 			}
-
-			neuron.leaky_current = val;
+ 
+			//neuron.leaky_current = 5 * val;
 		
 			setLED(val);
 		}

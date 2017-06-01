@@ -232,6 +232,7 @@ void write()
         Pop 1-bit off the write_buffer and write it to corresponding output pins
     */
     uint8_t i;
+    gpio_toggle(PORT_AXON1_EX, PIN_AXON1_EX);
     if (write_buffer.write_count == 33){
         // Message is done being written. Move to next message in the buffer.
         switch (write_buffer.current_buffer){

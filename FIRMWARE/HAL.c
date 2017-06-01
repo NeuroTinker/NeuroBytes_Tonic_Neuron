@@ -23,13 +23,15 @@ void clock_setup(void)
 
 void sys_tick_handler(void)
 {    
+    
     switch (touch_tick){
+        
         case 0:
-            start_touch(SENSOR0);
+            //start_touch(SENSOR0);
             touch_tick++;
             break;
         case 1:
-            sensor0_time = get_touch(SENSOR0);
+            //sensor0_time = get_touch(SENSOR0);
             touch_tick++;
             break;
         case 2:
@@ -37,13 +39,14 @@ void sys_tick_handler(void)
             touch_tick++;
             break;
         case 3:
-            sensor1_time = get_touch(SENSOR1);
+            //sensor1_time = get_touch(SENSOR1);
             touch_tick = 0;
             break;
         default:
             touch_tick = 0;
             break;
     }
+    
 
     if(main_tick_count++ >= 50){
         main_tick = 1;
@@ -95,7 +98,7 @@ void systick_setup(int xus)
 {
     systick_set_clocksource(STK_CSR_CLKSOURCE_EXT);
     STK_CVR = 0;
-    systick_set_reload(2 * xus);
+    systick_set_reload(20 * xus);
     systick_counter_enable();
     systick_interrupt_enable();
 }
@@ -125,13 +128,9 @@ void gpio_setup(void)
     setAsInput(PORT_AXON1_IN, PIN_AXON1_IN);
     setAsOutput(PORT_AXON1_EX, PIN_AXON1_EX);
 
-    // enable external interrupts
-	nvic_enable_irq(NVIC_EXTI0_1_IRQ);
-	nvic_enable_irq(NVIC_EXTI2_3_IRQ);
+    // enable external interrupts;
 	nvic_enable_irq(NVIC_EXTI4_15_IRQ);
 
-	nvic_set_priority(NVIC_EXTI0_1_IRQ, 0);
-	nvic_set_priority(NVIC_EXTI2_3_IRQ, 0);
 	nvic_set_priority(NVIC_EXTI4_15_IRQ, 0);
 
 }

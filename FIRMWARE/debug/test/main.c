@@ -97,7 +97,7 @@ int main(void)
 	for(;;)
 	{
 		val = get_slider_position();
-	
+		gpio_mode_setup(PORT_USART, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLDOWN, PIN_USART_RX);
 		setLED((val) * 100);
 
 		mini_snprintf(strDisp, 20, "%d\r\n",val);
