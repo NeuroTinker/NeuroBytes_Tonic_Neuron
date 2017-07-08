@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/zach/Documents/NeuroTinker/Products/NeuroBytes_Tonic_Neuron/HARDWARE/NeuroBytes_Tonic_Neuron.sch)
-    (date "Thu 29 Jun 2017 10:50:43 AM CDT")
+    (date "Fri 07 Jul 2017 06:55:03 PM CDT")
     (tool "Eeschema 4.0.5-e0-6337~49~ubuntu14.04.1")
     (sheet (number 1) (name /) (tstamps /)
       (title_block
@@ -430,10 +430,10 @@
     (net (code 2) (name LED_B)
       (node (ref U1) (pin 8))
       (node (ref RN1) (pin 4)))
-    (net (code 3) (name LED_G)
+    (net (code 3) (name LED_R)
       (node (ref RN1) (pin 3))
       (node (ref U1) (pin 7)))
-    (net (code 4) (name LED_R)
+    (net (code 4) (name LED_G)
       (node (ref RN1) (pin 2))
       (node (ref U1) (pin 6)))
     (net (code 5) (name "Net-(RN1-Pad1)")

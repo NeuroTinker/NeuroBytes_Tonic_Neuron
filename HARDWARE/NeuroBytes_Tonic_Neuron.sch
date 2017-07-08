@@ -584,9 +584,9 @@ Wire Wire Line
 	6550 5600 6550 6000
 Wire Wire Line
 	6550 6000 6150 6000
-Text GLabel 2550 2250 0    60   Input ~ 0
-LED_R
 Text GLabel 2550 2400 0    60   Input ~ 0
+LED_R
+Text GLabel 2550 2250 0    60   Input ~ 0
 LED_G
 Text GLabel 2550 2550 0    60   Input ~ 0
 LED_B
@@ -596,9 +596,9 @@ Wire Wire Line
 	2550 2400 2800 2400
 Wire Wire Line
 	2550 2550 2800 2550
-Text GLabel 7350 1200 0    60   Input ~ 0
-LED_R
 Text GLabel 7350 1400 0    60   Input ~ 0
+LED_R
+Text GLabel 7350 1200 0    60   Input ~ 0
 LED_G
 Text GLabel 7350 1600 0    60   Input ~ 0
 LED_B

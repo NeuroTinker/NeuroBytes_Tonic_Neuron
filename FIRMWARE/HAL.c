@@ -3,11 +3,11 @@
 #include "comm.h"
 
 
-uint8_t touch_tick = 0;
+volatile uint8_t touch_tick = 0;
 volatile int sensor0_time = 0;
 volatile int sensor1_time = 0;
 volatile uint8_t main_tick = 0;
-uint32_t main_tick_count = 0;
+volatile uint32_t main_tick_count = 0;
 
 void clock_setup(void)
 {
@@ -21,86 +21,47 @@ void clock_setup(void)
 //	rcc_osc_on(RCC_PLL);
 }
 
-void sys_tick_handler(void)
-{    
-    
-    switch (touch_tick){
-        
-        case 0:
-            //start_touch(SENSOR0);
-            touch_tick++;
-            break;
-        case 1:
-            //sensor0_time = get_touch(SENSOR0);
-            touch_tick++;
-            break;
-        case 2:
-            start_touch(SENSOR1);
-            touch_tick++;
-            break;
-        case 3:
-            //sensor1_time = get_touch(SENSOR1);
-            touch_tick = 0;
-            break;
-        default:
-            touch_tick = 0;
-            break;
-    }
-    
-
-    if(main_tick_count++ >= 50){
-        main_tick = 1;
-        main_tick_count = 0;
-    }
-
-    readInputs();
-	write();
-}
-
-void usart_setup(void)
-{
-	gpio_mode_setup(PORT_USART, GPIO_MODE_AF, GPIO_PUPD_NONE, PIN_USART_TX);
-	gpio_set_af(PORT_USART, GPIO_AF0, PIN_USART_TX);
-
-	rcc_periph_clock_enable(RCC_USART2);
-	
-	// USART_BRR: set baud rate
-	MMIO32((USART2_BASE) + 0x0C) = 139; // 16 MHz / 115200 baud
-	
-	// default 8-bit character length
-	// default 1 stop bit
-	// default no parity
-	// default no flow control
-
-	// USART_CR1: enable USART2
-	MMIO32((USART2_BASE) + 0x00) |= (1<<0);
-}
-
-void usart_send(uint8_t word)
-{
-	while ((MMIO32((USART2_BASE) + 0x1C) & (1<<7)) == 0); // ensure transmit register is empty
-
-		MMIO32((USART2_BASE) + 0x00) |= (1<<3); // enable transmit
-		MMIO32((USART2_BASE) + 0x28) = (word & 0xFF); // write data to USART_TDR
-}
-
-void usart_print(char *msg)
-{
-	int len = strlen(msg);
-	int i;
-	for (i=0;i<len;i++)
-	{
-		usart_send((uint8_t)*msg++);
-	}
-}
-
-void systick_setup(int xus)
+void systick_setup(int xms)
 {
     systick_set_clocksource(STK_CSR_CLKSOURCE_EXT);
     STK_CVR = 0;
-    systick_set_reload(20 * xus);
+    systick_set_reload(2000 * xms);
     systick_counter_enable();
     systick_interrupt_enable();
+}
+
+void sys_tick_handler(void)
+{    
+	switch (touch_tick){
+        
+		case 0:
+			start_touch(SENSOR0);
+			touch_tick++;
+			break;
+		case 1:
+			sensor0_time = get_touch(SENSOR0);
+			touch_tick++;
+			break;
+		case 2:
+			start_touch(SENSOR1);
+			touch_tick++;
+			break;
+		case 3:
+			sensor1_time = get_touch(SENSOR1);
+			touch_tick = 0;
+			break;
+		default:
+			touch_tick = 0;
+			break;
+	}
+    
+	if(main_tick_count++ >= 50){
+		main_tick = 1;
+		main_tick_count = 0;
+	}
+
+	readInputs();
+	write();
 }
 
 void gpio_setup(void)
@@ -112,21 +73,44 @@ void gpio_setup(void)
 
 	rcc_peripheral_enable_clock(&RCC_APB2ENR, RCC_APB2ENR_SYSCFGEN);
 
-	/*	Set up LED pin:
+	/*	Set up LED pins
 		Alternative Function Mode with no pullup/pulldown
 		Output options: push-pull, high speed
-		PIN_LED (PB0): AF2, TIM2_CH4 */	
-	gpio_mode_setup(PORT_LED, GPIO_MODE_AF, GPIO_PUPD_NONE, PIN_LED);
-	gpio_set_output_options(PORT_LED, GPIO_OTYPE_PP, GPIO_OSPEED_HIGH, PIN_LED);
-	gpio_set_af(PORT_LED, GPIO_AF2, PIN_LED); //TIM2_CH2
+		PIN_R_LED (PA1): AF2, TIM2_CH2
+		PIN_G_LED (PA0): AF2, TIM2_CH1
+		PIN_B_LED (PA2): AF2, TIM2_CH3
+	*/
 
-	/*	Set up touch sensor pins initially as outputs with pulldowns active */
-	gpio_mode_setup(PORT_TOUCH, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLDOWN, PIN_TOUCH0 | PIN_TOUCH1);
+	gpio_mode_setup(PORT_R_LED, GPIO_MODE_AF, GPIO_PUPD_NONE, PIN_R_LED);
+	gpio_mode_setup(PORT_G_LED, GPIO_MODE_AF, GPIO_PUPD_NONE, PIN_G_LED);
+	gpio_mode_setup(PORT_B_LED, GPIO_MODE_AF, GPIO_PUPD_NONE, PIN_B_LED);
+	gpio_set_output_options(PORT_R_LED, GPIO_OTYPE_PP, GPIO_OSPEED_HIGH, PIN_R_LED);
+	gpio_set_output_options(PORT_G_LED, GPIO_OTYPE_PP, GPIO_OSPEED_HIGH, PIN_G_LED);
+	gpio_set_output_options(PORT_B_LED, GPIO_OTYPE_PP, GPIO_OSPEED_HIGH, PIN_B_LED);
+	gpio_set_af(PORT_R_LED, GPIO_AF2, PIN_R_LED);
+	gpio_set_af(PORT_G_LED, GPIO_AF2, PIN_G_LED);
+	gpio_set_af(PORT_B_LED, GPIO_AF2, PIN_B_LED);
 
-    gpio_mode_setup(PORT_AXON1_EX, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLDOWN, PIN_AXON1_EX);
+	/*	Set up touch sensor pins as floating AF pins */
+	gpio_mode_setup(PORT_TOUCH0_SENSE, GPIO_MODE_AF, GPIO_PUPD_NONE, PIN_TOUCH0_SENSE);
+	gpio_mode_setup(PORT_TOUCH1_SENSE, GPIO_MODE_AF, GPIO_PUPD_NONE, PIN_TOUCH1_SENSE);
+	gpio_set_af(PORT_TOUCH0_SENSE, GPIO_AF0, PIN_TOUCH0_SENSE);
+	gpio_set_af(PORT_TOUCH1_SENSE, GPIO_AF5, PIN_TOUCH1_SENSE);
+
+	/*	Set up touch sensor resistor pins and set them low to start */
+    gpio_mode_setup(PORT_TOUCH0_RES, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLDOWN, PIN_TOUCH0_RES);
+    gpio_mode_setup(PORT_TOUCH1_RES, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLDOWN, PIN_TOUCH1_RES);
+
+	gpio_clear(PORT_TOUCH0_RES, PIN_TOUCH0_RES);
+	gpio_clear(PORT_TOUCH1_RES, PIN_TOUCH1_RES);
 
     setAsInput(PORT_AXON1_IN, PIN_AXON1_IN);
-    setAsOutput(PORT_AXON1_EX, PIN_AXON1_EX);
+    setAsInput(PORT_AXON2_IN, PIN_AXON2_IN);
+    setAsInput(PORT_DEND1_EX, PIN_DEND1_EX);
+    setAsInput(PORT_DEND1_IN, PIN_DEND1_IN);
+    
+	setAsOutput(PORT_AXON1_EX, PIN_AXON1_EX);
+	setAsOutput(PORT_AXON2_EX, PIN_AXON2_EX);
 
     // enable external interrupts;
 	nvic_enable_irq(NVIC_EXTI4_15_IRQ);
@@ -179,14 +163,20 @@ void tim_setup(void)
 	/* 	Set timer period to 9600: 5 kHz PWM with 9600 steps */
 	timer_set_period(TIM2, 9600);
 
-	// 	Set TIM2 Output Compare mode to PWM1 on channel 2
+	// 	Set TIM2 Output Compare mode to PWM1 on channel 1, 2, and 3
+	timer_set_oc_mode(TIM2, TIM_OC1, TIM_OCM_PWM1);
 	timer_set_oc_mode(TIM2, TIM_OC2, TIM_OCM_PWM1);
+	timer_set_oc_mode(TIM2, TIM_OC3, TIM_OCM_PWM1);
 
-	// 	Set starting output compare values
+	// 	Set initial output compare values to 0
+	timer_set_oc_value(TIM2, TIM_OC1, 0);
 	timer_set_oc_value(TIM2, TIM_OC2, 0);
+	timer_set_oc_value(TIM2, TIM_OC3, 0);
 
 	// 	Enable outputs 
+	timer_enable_oc_output(TIM2, TIM_OC1);
 	timer_enable_oc_output(TIM2, TIM_OC2);
+	timer_enable_oc_output(TIM2, TIM_OC3);
 	
 	/*	Enable counter */
 	timer_enable_counter(TIM2);
@@ -196,18 +186,132 @@ void tim_setup(void)
 
 }
 
-void setLED(uint16_t val)
+void LEDFullWhite(void) 
 {
-	if (val <= 1023)
+	timer_set_oc_value(TIM2, TIM_OC1, 9600);
+	timer_set_oc_value(TIM2, TIM_OC2, 9600);
+	timer_set_oc_value(TIM2, TIM_OC3, 9600);
+}
+
+void setLED(uint16_t r, uint16_t g, uint16_t b)
+{
+	if (r <= 1023) 
 	{
-		timer_set_oc_value(TIM2, TIM_OC2, gamma_lookup[val]);
+		timer_set_oc_value(TIM2, TIM_OC2, gamma_lookup[r]);
 	}
 	else 
 	{
 		timer_set_oc_value(TIM2, TIM_OC2, 9600);
 	}
+
+	if (g <= 1023) 
+	{
+		timer_set_oc_value(TIM2, TIM_OC1, gamma_lookup[g]);
+	}
+	else
+	{
+		timer_set_oc_value(TIM2, TIM_OC1, 9600);
+	}
+
+	if (b <= 1023)
+	{
+		timer_set_oc_value(TIM2, TIM_OC3, gamma_lookup[b]);
+	}
+	else
+	{
+		timer_set_oc_value(TIM2, TIM_OC3, 9600);
+	}
 }
 
+void start_touch(sensor_t sensor)
+{
+	int i, port_res, pin_res, port_sense, pin_sense, bit_addr, tim_af;
+	
+	if (sensor == SENSOR0) 
+	{
+		port_sense = PORT_TOUCH0_SENSE;
+		pin_sense = PIN_TOUCH0_SENSE;
+		port_res = PORT_TOUCH0_RES;
+		pin_res = PIN_TOUCH0_RES;
+		bit_addr = 0;
+	}
+	else if (sensor == SENSOR1)
+	{
+		port_sense = PORT_TOUCH1_SENSE;
+		pin_sense = PIN_TOUCH1_SENSE;
+		port_res = PORT_TOUCH1_RES;
+		pin_res = PIN_TOUCH1_RES;
+		bit_addr = 1;
+	}
+   	 
+	MMIO32((RCC_BASE) + 0x34) |= (1<<2); //Enable TIM21
+	MMIO32((RCC_BASE) + 0x24) |= (1<<2); //Set reset bit, TIM21
+	MMIO32((RCC_BASE) + 0x24) &= ~(1<<2); //Clear reset bit, TIM21
+	
+  	//	TIM21 control register 1 (TIMx_CR1):
+	//	Edge-aligned (default setting)
+  	//	No clock division (default setting)
+  	//	Up direction (default setting)
+
+	//	TIM21 capture/compare mode register (TIMx_CCMR1)
+	MMIO32((TIM21_BASE) + 0x18) |= (1<<bit_addr); //Compare/Capture 1 selection (bit 0 for PIN_TOUCH0, bit1 for PIN_TOUCH1)
+	//	IC1F left at 0000, so sampling is done at clock speed with no digital filtering
+	//	CC1P/CCNP left at 00, so trigger happens on rising edge
+	//	IC1PS bits left at 00, no input prescaling	
+	
+	MMIO32((TIM21_BASE) + 0x20) |= (1<<0); // enable capture
+   	MMIO32((TIM21_BASE) + 0x00) |= (1<<0); // enable TIM21 counter
+
+	gpio_set(port_res, pin_res); // set resistor pin high
+}
+
+int get_touch(sensor_t sensor)
+{
+	int val;
+	val = MMIO32((TIM21_BASE) + 0x34);
+	
+	// set resistor low for the next cycle:
+	if (sensor == SENSOR0) 
+	{
+		gpio_clear(PORT_TOUCH0_RES, PIN_TOUCH0_RES);
+	}
+	if (sensor == SENSOR1)
+	{
+		gpio_clear(PORT_TOUCH1_RES, PIN_TOUCH1_RES);
+	}
+
+	return val;
+}
+
+int get_slider_position(void)
+/*	returns touch slider position (0-255ish) based on PCB-specific calibration settings, or -1 if no touch is detected
+	note that all touch timing is handled in systick_handler and updates sensorx_time global variables */
+{
+	int pos;
+
+	if ((sensor0_time < 60) || (sensor1_time < 60))
+	{
+		return -1;
+	}
+
+	pos = sensor0_time - sensor1_time;
+
+	if (pos < 0)
+	{
+		if (pos <= -110)
+		{
+			return 0;
+		}
+		else
+		{
+			return (pos + 110);
+		}
+	}
+	else
+	{
+		return (pos + 110);
+	}
+}
 
 static const uint16_t gamma_lookup[1024] = {
 	//	Gamma = 2, input range = 0-1023, output range = 0-9600 
