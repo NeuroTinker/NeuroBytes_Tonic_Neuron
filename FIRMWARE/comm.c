@@ -146,15 +146,17 @@ void readInputs(void)
                         */
 
                         dendrite_ping_flag[i] = 1;
-                        if (i % 2 == 0){
+                        /*
+                        if (i == 0){
                             // excitatory
-                            setAsOutput(active_input_ports[i+1], complimentary_pins[i]);
-                            active_output_pins[i+1] = complimentary_pins[i];
+                            setAsOutput(active_input_ports[1], complimentary_pins[0]);
+                            active_output_pins[1] = complimentary_pins[0];
                         } else{
                             // inhibitory
-                            setAsOutput(active_input_ports[i-1], complimentary_pins[i]);
-                            active_output_pins[i-1] = complimentary_pins[i];
+                            setAsOutput(active_input_ports[0], complimentary_pins[1]);
+                            active_output_pins[0] = complimentary_pins[1];
                         }
+                        */
                     } else if (recipient_id == ALL){
                         /*
                             This is a NID -> network ping message.
@@ -328,7 +330,7 @@ void writeAll(void)
     write_buffer.all[0] <<= 1;
 
     // write to all output pins except for the pin the message was received on
-    for (i=0;i<1;i++){
+    for (i=0;i<2;i++){
         if (active_output_pins[i] != 0 && active_output_pins[i] != complimentary_pins[write_buffer.source_pin]){
             if (value != 0){
                 gpio_set(active_output_ports[i], active_output_pins[i]);

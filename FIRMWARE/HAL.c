@@ -106,8 +106,8 @@ void gpio_setup(void)
 
     //setAsInput(PORT_AXON1_IN, PIN_AXON1_IN);
     //setAsInput(PORT_AXON2_IN, PIN_AXON2_IN);
+	setAsInput(PORT_DEND1_IN, PIN_DEND1_IN);
     setAsInput(PORT_DEND1_EX, PIN_DEND1_EX);
-    setAsInput(PORT_DEND1_IN, PIN_DEND1_IN);
     
 	setAsOutput(PORT_AXON1_EX, PIN_AXON1_EX);
 	setAsOutput(PORT_AXON2_EX, PIN_AXON2_EX);
@@ -135,7 +135,7 @@ void setAsInput(uint32_t port, uint32_t pin)
 void setAsOutput(uint32_t port, uint32_t pin)
 {
 	// disable input interrupts
-	exti_disable_request(pin);
+	//exti_disable_request(pin);
 
 	// setup gpio as an output pin. pulldown
 	gpio_mode_setup(port, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLDOWN, pin);

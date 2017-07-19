@@ -32,11 +32,12 @@ int main(void)
 	uint16_t	fire_delay_time = 0;
 	uint8_t		fire_flag = 0;
 
-	// button debounce variables
-//	uint16_t	button_press_time = 0; 
-//	uint8_t		button_armed = 0;
-//	uint16_t	button_status = 0;
-
+/*
+	button debounce variables
+	uint16_t	button_press_time = 0; 
+	uint8_t		button_armed = 0;
+	uint16_t	button_status = 0;
+*/
 	// current channel used to communicate to NID (e.g. CH. 1). 0 if neuron has not been selected by NID
 //	uint32_t	nid_channel = 0b000;
 
@@ -81,6 +82,7 @@ int main(void)
 			membraneDecayStep(&neuron);
 			dendriteDecayStep(&neuron);
 			current_fire_time += 1;
+
 			// if membrane potential is greater than threshold, fire
 			if (neuron.potential > MEMBRANE_THRESHOLD){
 				// fire for determined pulse width
