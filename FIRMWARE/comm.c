@@ -4,12 +4,12 @@
 
 write_buffer_t write_buffer;
 
-uint32_t message_buffer[1] = {0};
-uint8_t message_buffer_count[1];
+uint32_t message_buffer[2] = {0,0};
+uint8_t message_buffer_count[2];
 
-volatile uint16_t active_input_pins[1] = {0};
+volatile uint16_t active_input_pins[2] = {0,0};
 
-volatile uint16_t active_output_pins[1] = {PIN_AXON1_IN};
+volatile uint16_t active_output_pins[2] = {PIN_AXON1_EX, PIN_AXON2_EX};
 
 volatile uint32_t dendrite_pulses[4] = {0,0,0,0};
 volatile uint8_t dendrite_pulse_count = 0;
@@ -42,20 +42,23 @@ All available input pins are
     };
 */
 
-uint32_t active_input_ports[1] = {
-    PORT_AXON1_IN
+uint32_t active_input_ports[2] = {
+    PORT_DEND1_EX,
+    PORT_DEND1_IN
 };
 
-uint32_t active_output_ports[1] = {
-    PORT_AXON1_EX
+uint32_t active_output_ports[2] = {
+    PORT_AXON1_EX,
+    PORT_AXON2_EX
 };
 
-uint16_t complimentary_pins[1] = {
-    PIN_AXON1_EX
+uint16_t complimentary_pins[2] = {
+    PIN_DEND1_IN,
+    PIN_DEND1_EX
 };
 
-volatile uint8_t dendrite_pulse_flag[1] = {0};
-volatile uint8_t dendrite_ping_flag[1] = {0};
+volatile uint8_t dendrite_pulse_flag[2] = {0,0};
+volatile uint8_t dendrite_ping_flag[2] = {0,0};
 uint8_t write_count = 0;
 volatile uint16_t identify_time = IDENTIFY_TIME;
 uint8_t identify_channel = 0;
@@ -94,7 +97,6 @@ void readInputs(void)
 
             // when the message buffer has read 32-bits, the message is done being read and is processed
             if (++message_buffer_count[i] == 32){ // done reading message
-
                 // Process message and set appropriate flags for main() or add messages to message buffer
                 recipient_id = (message_buffer[i] & RECIPIENT_MASK) >> 28; // 3-bit recipient id 28
                 keep_alive = (message_buffer[i] & KEEP_ALIVE_MASK) >> 22; // 6-bit keep alive 22
@@ -106,6 +108,10 @@ void readInputs(void)
                 message_buffer[i] = (((keep_alive - 1) << 22) & KEEP_ALIVE_MASK) | (message_buffer[i] & ~KEEP_ALIVE_MASK);
                 
                 // analyze message header and determine what to do with it
+
+                if (recipient_id == SELECTED4){
+                    dendrite_pulse_flag[i] = 1;
+                }
 
                 if (header == BLINK && recipient_id == ALL){
                     /*
@@ -140,6 +146,14 @@ void readInputs(void)
                         */
 
                         dendrite_ping_flag[i] = 1;
+                        if (i % 2 == 0){
+                            // excitatory
+                            setAsOutput(active_input_ports[i+1], complimentary_pins[i]);
+                            active_output_pins[i+1] = complimentary_pins[i];
+                        } else{
+                            // inhibitory
+                            setAsOutput(active_input_ports[i-1], complimentary_pins[i]);
+                            active_output_pins[i-1] = complimentary_pins[i];
                         }
                     } else if (recipient_id == ALL){
                         /*
@@ -184,11 +198,6 @@ void readInputs(void)
                         write_buffer.source_pin = i;
                     }
                 }
-
-                if (header == PULSE || recipient_id == DOWNSTREAM){
-                    // this is a downstream -> upstream pulse message
-                    dendrite_pulse_flag[i] = 1;
-                }
                 
                 
                 
@@ -201,6 +210,7 @@ void readInputs(void)
             }
         }
     }
+}
 
 
 void addWrite(message_buffers_t buffer, uint32_t message)
@@ -232,7 +242,6 @@ void write()
         Pop 1-bit off the write_buffer and write it to corresponding output pins
     */
     uint8_t i;
-    gpio_toggle(PORT_AXON1_EX, PIN_AXON1_EX);
     if (write_buffer.write_count == 33){
         // Message is done being written. Move to next message in the buffer.
         switch (write_buffer.current_buffer){
@@ -298,8 +307,10 @@ void writeDownstream(void)
     // we should have both axon out pins be on the same port that way they can be written together
     if (value != 0){
         gpio_set(PORT_AXON1_EX, PIN_AXON1_EX);
+        gpio_set(PORT_AXON2_EX, PIN_AXON2_EX);
     }else{
         gpio_clear(PORT_AXON1_EX, PIN_AXON1_EX);
+        gpio_clear(PORT_AXON2_EX, PIN_AXON2_EX);
     }
 }
 

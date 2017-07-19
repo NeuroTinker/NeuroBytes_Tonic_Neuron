@@ -10,14 +10,14 @@
 
 #include "HAL.h"
 
-#define NUM_INPUTS 1
+#define NUM_INPUTS 2
 #define DEND_PING_TIME		200 // 1000 ms
 #define	NID_PING_TIME		200 // 1000 ms
 #define NID_PING_KEEP_ALIVE     32
 
 
 #define BLINK_MESSAGE           0b10110001110001110000000000000000 // (ALL) (KEEP ALIVE=7) (NID) (BLINK) (no data)
-#define PULSE_MESSAGE           0b10010000010100110000000000000000 // (DOWNSTREAM) (KEEP ALIVE=1) (UPSTREAM) (PULSE) (no data)
+#define PULSE_MESSAGE           0b11111000010100110000000000000000 // (DOWNSTREAM) (KEEP ALIVE=1) (UPSTREAM) (PULSE) (no data)
 #define DATA_MESSAGE            0b10000000000001000000000000000000 // (NID) (KEEP ALIVE=0) (CHANNEL= NONE) (DATA) (no data)
 #define DEND_PING               0b10010000010100010000000000000000 // (DOWNSTREAM) (KEEP ALIVE=1) (UPSTREAM) (PING) (no data)
 #define NID_PING                0b10110001110000010000000000000000 // (ALL) (KEEP ALIVE=7) (NID) (PING) (no data)
@@ -105,16 +105,16 @@ typedef struct{
 } write_buffer_t;
 
 
-extern uint16_t complimentary_pins[1];
-extern volatile uint16_t active_input_pins[1];
-extern uint32_t active_input_ports[1];
-extern volatile uint16_t active_output_pins[1];
-extern uint32_t active_output_ports[1];
+extern uint16_t complimentary_pins[2];
+extern volatile uint16_t active_input_pins[2];
+extern uint32_t active_input_ports[2];
+extern volatile uint16_t active_output_pins[2];
+extern uint32_t active_output_ports[2];
 
 // flags for main()
-extern volatile uint8_t dendrite_pulse_flag[1];
+extern volatile uint8_t dendrite_pulse_flag[2];
 extern volatile uint8_t blink_flag;
-extern volatile uint8_t dendrite_ping_flag[1];
+extern volatile uint8_t dendrite_ping_flag[2];
 
 extern volatile uint32_t nid_ping_time;
 extern volatile uint32_t nid_keep_alive;

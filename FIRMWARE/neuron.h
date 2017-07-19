@@ -9,6 +9,10 @@
 #define PULSE_LENGTH            5 // led white time
 
 #define DENDRITE_ALIVE_TIME     200
+#define FIRE_LED_TIME           1
+#define FIRE_DELAY_TIME         20
+
+#define DENDRITE_ALIVE_TIME     200
 #define FIRE_LED_TIME           5
 
 typedef enum{
@@ -55,14 +59,14 @@ SLEEP =	2
 
 typedef struct{
 // mode independent vars
-int16_t     potential;
+int32_t     potential;
 dendrite_t  dendrites[DENDRITE_COUNT];
 uint16_t    dendrite_ping_time[11];
 neuron_states   state;
 learning_states learning_state; // Hebb learning mode
 
 uint16_t    fire_time;
-int16_t		fire_potential;
+int32_t		fire_potential;
 
 // Hebb vars
 uint16_t	hebb_time;

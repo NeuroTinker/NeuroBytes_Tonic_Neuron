@@ -7,6 +7,7 @@ volatile uint8_t touch_tick = 0;
 volatile int sensor0_time = 0;
 volatile int sensor1_time = 0;
 volatile uint8_t main_tick = 0;
+volatile uint8_t tick = 0;
 volatile uint32_t main_tick_count = 0;
 
 void clock_setup(void)
@@ -25,7 +26,7 @@ void systick_setup(int xms)
 {
     systick_set_clocksource(STK_CSR_CLKSOURCE_EXT);
     STK_CVR = 0;
-    systick_set_reload(2000 * xms);
+    systick_set_reload(180);
     systick_counter_enable();
     systick_interrupt_enable();
 }
@@ -54,12 +55,11 @@ void sys_tick_handler(void)
 			touch_tick = 0;
 			break;
 	}
-    
-	if(main_tick_count++ >= 50){
-		main_tick = 1;
-		main_tick_count = 0;
-	}
 
+	if (++tick >= 50){
+		main_tick = 1;
+		tick = 0;
+	}
 	readInputs();
 	write();
 }
@@ -104,8 +104,8 @@ void gpio_setup(void)
 	gpio_clear(PORT_TOUCH0_RES, PIN_TOUCH0_RES);
 	gpio_clear(PORT_TOUCH1_RES, PIN_TOUCH1_RES);
 
-    setAsInput(PORT_AXON1_IN, PIN_AXON1_IN);
-    setAsInput(PORT_AXON2_IN, PIN_AXON2_IN);
+    //setAsInput(PORT_AXON1_IN, PIN_AXON1_IN);
+    //setAsInput(PORT_AXON2_IN, PIN_AXON2_IN);
     setAsInput(PORT_DEND1_EX, PIN_DEND1_EX);
     setAsInput(PORT_DEND1_IN, PIN_DEND1_IN);
     
@@ -114,9 +114,10 @@ void gpio_setup(void)
 
     // enable external interrupts;
 	nvic_enable_irq(NVIC_EXTI4_15_IRQ);
+	nvic_enable_irq(NVIC_EXTI2_3_IRQ);
 
 	nvic_set_priority(NVIC_EXTI4_15_IRQ, 0);
-
+	nvic_set_priority(NVIC_EXTI2_3_IRQ, 0);
 }
 
 void setAsInput(uint32_t port, uint32_t pin)
@@ -140,12 +141,19 @@ void setAsOutput(uint32_t port, uint32_t pin)
 	gpio_mode_setup(port, GPIO_MODE_OUTPUT, GPIO_PUPD_PULLDOWN, pin);
 }
 
+void exti2_3_isr(void)
+{
+	if ((EXTI_PR & PIN_DEND1_EX) != 0){
+		active_input_pins[0] = PIN_DEND1_EX;
+		EXTI_PR |= PIN_DEND1_EX;
+	}
+}
+
 void exti4_15_isr(void)
 {
-    if ((EXTI_PR & PIN_AXON1_IN) != 0){
-        // pin 7
-		//active_input_pins[0] = PIN_AXON1_IN;
-		EXTI_PR |= PIN_AXON1_IN;
+    if ((EXTI_PR & PIN_DEND1_IN) != 0){
+		active_input_pins[1] = PIN_DEND1_IN;
+		EXTI_PR |= PIN_DEND1_IN;
 	}
 }
 
@@ -185,6 +193,19 @@ void tim_setup(void)
 	MMIO32((TIM21_BASE) + 0x28) = 0; //prescaler = clk
 
 }
+
+void tim21_isr(void)
+{
+	/*
+		TIM21 is the communication clock. 
+		Each interrupt is one-bit read and one-bit write of gpios.
+		Interrupts occur every 100 us.
+	*/
+
+	
+    MMIO32((TIM21_BASE) + 0x10) &= ~(1<<0); //clear the interrupt register
+}
+
 
 void LEDFullWhite(void) 
 {

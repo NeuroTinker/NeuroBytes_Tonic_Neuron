@@ -2,8 +2,9 @@
 #include "neuron.h"
 #include "comm.h"
 
-uint16_t input_pins[11] = {
-    PIN_AXON1_IN
+uint16_t input_pins[2] = {
+    PIN_DEND1_EX,
+	PIN_DEND1_IN
 };
 
 void neuronInit(neuron_t *n)
@@ -50,6 +51,66 @@ void neuronInit(neuron_t *n)
 void checkDendrites(neuron_t * n)
 {
 	uint8_t i;
+
+	for (i=0; i<2; i++){
+		
+		// check if dendrite has received a new ping
+		if (dendrite_ping_flag[i] != 0){
+
+			dendrite_ping_flag[i] = 0;
+
+			n->dendrite_ping_time[i] = DEND_PING_TIME;
+		} else if (n->dendrite_ping_time[i] == 1){	
+			// dendrite ping has expired; reset the dendrite to inputs		
+			if (i % 2 == 0){
+				// i=1,3,5,7,9
+				setAsInput(active_input_ports[i+1], complimentary_pins[i]);
+				active_output_pins[i+1] = 0;
+			} else{
+				// i=0,4,6,8,10
+				setAsInput(active_input_ports[i-1], complimentary_pins[i]);
+				active_output_pins[i-1] = 0;
+			}
+			
+		}
+		
+		if (n->dendrite_ping_time[i] > 0){
+			n->dendrite_ping_time[i] -= 1;
+		}
+		
+		// check if dendrite has received a pulse
+		if (dendrite_pulse_flag[i] != 0){
+			dendrite_pulse_flag[i] = 0;
+			switch (input_pins[i]){
+				case PIN_DEND1_EX:
+					n->dendrites[0].type = EXCITATORY;
+					n->dendrites[0].state = ON;
+					n->dendrites[0].pulse_time = 0;
+					break;
+				case PIN_DEND1_IN:
+					n->dendrites[0].type = INHIBITORY;
+					n->dendrites[0].state = ON;
+					n->dendrites[0].pulse_time = 0;
+					break;
+				
+				default:
+					break;
+			}
+		}
+	}
+	
+	for (i=0; i<1
+	 ; i++){
+		// switch dendrite off when pulse has expired
+		if(n->dendrites[i].state == ON){
+			if (n->dendrites[i].pulse_time == 0)
+				n->dendrites[i].timestamp = 0;
+			n->dendrites[i].pulse_time += 1;
+			if (n->dendrites[i].pulse_time >= PULSE_LENGTH){
+				dendriteSwitchOff(&(n->dendrites[i]));
+			}
+		}
+	}
 	
 }
 
@@ -91,7 +152,7 @@ void dendriteDecayStep(neuron_t * n)
 {
 	uint8_t i;
 
-	for(i=0; i<DENDRITE_COUNT; i++){
+	for(i=0; i<1; i++){
 		n->dendrites[i].current_value = (n->dendrites[i].current_value * 63 ) / 64;
 	}
 }
@@ -105,7 +166,7 @@ int16_t calcNeuronPotential(neuron_t *n)
 {
 	uint8_t i;
 	int16_t new_v = 0;
-	for (i=0; i<DENDRITE_COUNT; i++){
+	for (i=0; i<1; i++){
 		if (n->dendrites[i].state == ON){
 			switch(n->dendrites[i].type){
 				case EXCITATORY:
