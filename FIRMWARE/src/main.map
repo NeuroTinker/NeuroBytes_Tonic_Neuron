@@ -58,7 +58,6 @@ Discarded input sections
  .text          0x0000000000000000        0x0 main.o
  .data          0x0000000000000000        0x0 main.o
  .bss           0x0000000000000000        0x0 main.o
- .fingerprint   0x0000000000000000        0xc main.o
  .group         0x0000000000000000        0x8 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
  .group         0x0000000000000000        0x8 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
  .group         0x0000000000000000        0x8 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
@@ -974,6 +973,11 @@ END GROUP
                 0x00000000200000a8                . = ALIGN (0x4)
                 0x00000000200000a8                end = .
                 0x0000000020000800                PROVIDE (_stack, (ORIGIN (ram) + LENGTH (ram)))
+                0x0000000008002000                _fingerprint_start = 0x8002000
+
+.fingerprint    0x0000000008002000        0xc
+ *(.fingerprint)
+ .fingerprint   0x0000000008002000        0xc main.o
 OUTPUT(main.elf elf32-littlearm)
 
 .debug_info     0x0000000000000000     0x4c2f
