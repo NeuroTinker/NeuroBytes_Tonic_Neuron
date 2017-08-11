@@ -18,7 +18,7 @@
 #define BUTTON_PRESS_TIME	2
 
 static uint32_t fingerprint[3] __attribute__((section (".fingerprint"))) __attribute__ ((__used__)) = {
-	1, // device id
+	4, // device id
 	1, // firmware version
 	0  // unique id
 };
