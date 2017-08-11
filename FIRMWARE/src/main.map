@@ -973,11 +973,11 @@ END GROUP
                 0x00000000200000a8                . = ALIGN (0x4)
                 0x00000000200000a8                end = .
                 0x0000000020000800                PROVIDE (_stack, (ORIGIN (ram) + LENGTH (ram)))
-                0x0000000008002000                _fingerprint_start = 0x8002000
+                0x0000000008003e00                _fingerprint_start = 0x8003e00
 
-.fingerprint    0x0000000008002000        0xc
+.fingerprint    0x0000000008003e00        0xc
  *(.fingerprint)
- .fingerprint   0x0000000008002000        0xc main.o
+ .fingerprint   0x0000000008003e00        0xc main.o
 OUTPUT(main.elf elf32-littlearm)
 
 .debug_info     0x0000000000000000     0x4c2f
