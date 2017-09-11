@@ -303,6 +303,7 @@ void write()
 void writeDownstream(void)
 {
     uint32_t value;
+    uint32_t i;
     value = write_buffer.downstream[0] & 0x80000000;
     write_buffer.downstream[0] <<= 1;
 
