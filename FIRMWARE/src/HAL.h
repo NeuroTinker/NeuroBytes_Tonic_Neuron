@@ -55,6 +55,7 @@ extern volatile int sensor0_time;
 extern volatile int sensor1_time;
 extern volatile uint8_t touch_tick;
 extern volatile uint8_t main_tick;
+extern volatile uint8_t read_tick;
 extern volatile uint32_t main_tick_count;
 extern volatile uint8_t tick;
 static const uint16_t gamma_lookup[1024];

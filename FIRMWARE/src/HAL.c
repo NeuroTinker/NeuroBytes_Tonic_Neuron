@@ -8,6 +8,7 @@ volatile int sensor0_time = 0;
 volatile int sensor1_time = 0;
 volatile uint8_t main_tick = 0;
 volatile uint8_t tick = 0;
+volatile uint8_t read_tick = 0;
 volatile uint32_t main_tick_count = 0;
 
 void clock_setup(void)
@@ -26,7 +27,7 @@ void systick_setup(int xms)
 {
     systick_set_clocksource(STK_CSR_CLKSOURCE_EXT);
     STK_CVR = 0;
-    systick_set_reload(180);
+    systick_set_reload(60);
     systick_counter_enable();
     systick_interrupt_enable();
 }
@@ -56,12 +57,17 @@ void sys_tick_handler(void)
 			break;
 	}
 
-	if (++tick >= 50){
+	if (++tick >= 150){
 		main_tick = 1;
 		tick = 0;
 	}
+
 	readInputs();
-	write();
+	
+	if (++read_tick >= 3){
+		write();
+		read_tick = 0;
+	}
 }
 
 void gpio_setup(void)
