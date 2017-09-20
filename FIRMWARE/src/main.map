@@ -38,11 +38,11 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 comm.o
  .bss.write_count
                 0x0000000000000000        0x1 comm.o
- .bss.dendrite_pulses
-                0x0000000000000000       0x10 comm.o
  .bss.dendrite_pulse_count
                 0x0000000000000000        0x1 comm.o
  .data.nid_i    0x0000000000000000        0x1 comm.o
+ .bss.dendrite_pulses
+                0x0000000000000000       0x10 comm.o
  .text          0x0000000000000000        0x0 HAL.o
  .data          0x0000000000000000        0x0 HAL.o
  .bss           0x0000000000000000        0x0 HAL.o
@@ -594,7 +594,7 @@ LOAD /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a
 LOAD /usr/lib/gcc/arm-none-eabi/4.9.3/../../../arm-none-eabi/lib/armv6-m/libc.a
 END GROUP
 
-.text           0x0000000008000000     0x1b28
+.text           0x0000000008000000     0x1b68
  *(.vectors)
  .vectors       0x0000000008000000       0xc0 ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
                 0x0000000008000000                vector_table
@@ -606,272 +606,272 @@ END GROUP
                 0x00000000080000d0       0x48 comm.o
                 0x00000000080000d0                addWrite
  .text.readInputs
-                0x0000000008000118      0x1b4 comm.o
+                0x0000000008000118      0x1c8 comm.o
                 0x0000000008000118                readInputs
  .text.writeDownstream
-                0x00000000080002cc       0x38 comm.o
-                0x00000000080002cc                writeDownstream
+                0x00000000080002e0       0x4c comm.o
+                0x00000000080002e0                writeDownstream
  .text.writeAll
-                0x0000000008000304       0x60 comm.o
-                0x0000000008000304                writeAll
+                0x000000000800032c       0x60 comm.o
+                0x000000000800032c                writeAll
  .text.writeNID
-                0x0000000008000364       0x38 comm.o
-                0x0000000008000364                writeNID
- .text.write    0x000000000800039c       0xac comm.o
-                0x000000000800039c                write
+                0x000000000800038c       0x38 comm.o
+                0x000000000800038c                writeNID
+ .text.write    0x00000000080003c4       0xac comm.o
+                0x00000000080003c4                write
  .text.clock_setup
-                0x0000000008000448       0x10 HAL.o
-                0x0000000008000448                clock_setup
+                0x0000000008000470       0x10 HAL.o
+                0x0000000008000470                clock_setup
  .text.systick_setup
-                0x0000000008000458       0x24 HAL.o
-                0x0000000008000458                systick_setup
+                0x0000000008000480       0x24 HAL.o
+                0x0000000008000480                systick_setup
  .text.setAsInput
-                0x000000000800047c       0x2e HAL.o
-                0x000000000800047c                setAsInput
+                0x00000000080004a4       0x2e HAL.o
+                0x00000000080004a4                setAsInput
  .text.setAsOutput
-                0x00000000080004aa        0xe HAL.o
-                0x00000000080004aa                setAsOutput
+                0x00000000080004d2        0xe HAL.o
+                0x00000000080004d2                setAsOutput
  .text.gpio_setup
-                0x00000000080004b8      0x138 HAL.o
-                0x00000000080004b8                gpio_setup
+                0x00000000080004e0      0x138 HAL.o
+                0x00000000080004e0                gpio_setup
  .text.exti2_3_isr
-                0x00000000080005f0       0x20 HAL.o
-                0x00000000080005f0                exti2_3_isr
+                0x0000000008000618       0x20 HAL.o
+                0x0000000008000618                exti2_3_isr
  .text.exti4_15_isr
-                0x0000000008000610       0x20 HAL.o
-                0x0000000008000610                exti4_15_isr
+                0x0000000008000638       0x20 HAL.o
+                0x0000000008000638                exti4_15_isr
  .text.tim_setup
-                0x0000000008000630       0x94 HAL.o
-                0x0000000008000630                tim_setup
+                0x0000000008000658       0x94 HAL.o
+                0x0000000008000658                tim_setup
  .text.tim21_isr
-                0x00000000080006c4       0x10 HAL.o
-                0x00000000080006c4                tim21_isr
- .text.setLED   0x00000000080006d4       0x74 HAL.o
-                0x00000000080006d4                setLED
+                0x00000000080006ec       0x10 HAL.o
+                0x00000000080006ec                tim21_isr
+ .text.setLED   0x00000000080006fc       0x74 HAL.o
+                0x00000000080006fc                setLED
  .text.start_touch
-                0x0000000008000748       0x78 HAL.o
-                0x0000000008000748                start_touch
+                0x0000000008000770       0x78 HAL.o
+                0x0000000008000770                start_touch
  .text.get_touch
-                0x00000000080007c0       0x2c HAL.o
-                0x00000000080007c0                get_touch
+                0x00000000080007e8       0x2c HAL.o
+                0x00000000080007e8                get_touch
  .text.sys_tick_handler
-                0x00000000080007ec       0x8c HAL.o
-                0x00000000080007ec                sys_tick_handler
+                0x0000000008000814       0xa4 HAL.o
+                0x0000000008000814                sys_tick_handler
  .text.get_slider_position
-                0x0000000008000878       0x3c HAL.o
-                0x0000000008000878                get_slider_position
+                0x00000000080008b8       0x3c HAL.o
+                0x00000000080008b8                get_slider_position
  .text.neuronInit
-                0x00000000080008b4       0x74 neuron.o
-                0x00000000080008b4                neuronInit
+                0x00000000080008f4       0x74 neuron.o
+                0x00000000080008f4                neuronInit
  .text.dendriteSwitchOff
-                0x0000000008000928       0x22 neuron.o
-                0x0000000008000928                dendriteSwitchOff
- *fill*         0x000000000800094a        0x2 
+                0x0000000008000968       0x22 neuron.o
+                0x0000000008000968                dendriteSwitchOff
+ *fill*         0x000000000800098a        0x2 
  .text.checkDendrites
-                0x000000000800094c       0xb8 neuron.o
-                0x000000000800094c                checkDendrites
+                0x000000000800098c       0xb8 neuron.o
+                0x000000000800098c                checkDendrites
  .text.dendriteDecayStep
-                0x0000000008000a04       0x14 neuron.o
-                0x0000000008000a04                dendriteDecayStep
+                0x0000000008000a44       0x14 neuron.o
+                0x0000000008000a44                dendriteDecayStep
  .text.membraneDecayStep
-                0x0000000008000a18       0x14 neuron.o
-                0x0000000008000a18                membraneDecayStep
+                0x0000000008000a58       0x14 neuron.o
+                0x0000000008000a58                membraneDecayStep
  .text.calcNeuronPotential
-                0x0000000008000a2c       0x24 neuron.o
-                0x0000000008000a2c                calcNeuronPotential
+                0x0000000008000a6c       0x24 neuron.o
+                0x0000000008000a6c                calcNeuronPotential
  .text.startup.main
-                0x0000000008000a50      0x18c main.o
-                0x0000000008000a50                main
+                0x0000000008000a90      0x18c main.o
+                0x0000000008000a90                main
  .text.rcc_osc_on
-                0x0000000008000bdc       0x54 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
-                0x0000000008000bdc                rcc_osc_on
+                0x0000000008000c1c       0x54 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
+                0x0000000008000c1c                rcc_osc_on
  .text.rcc_set_sysclk_source
-                0x0000000008000c30       0x44 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
-                0x0000000008000c30                rcc_set_sysclk_source
+                0x0000000008000c70       0x44 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
+                0x0000000008000c70                rcc_set_sysclk_source
  .text.timer_set_mode
-                0x0000000008000c74       0x18 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
-                0x0000000008000c74                timer_set_mode
+                0x0000000008000cb4       0x18 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
+                0x0000000008000cb4                timer_set_mode
  .text.timer_enable_counter
-                0x0000000008000c8c        0xa ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
-                0x0000000008000c8c                timer_enable_counter
+                0x0000000008000ccc        0xa ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
+                0x0000000008000ccc                timer_enable_counter
  .text.timer_set_prescaler
-                0x0000000008000c96        0x4 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
-                0x0000000008000c96                timer_set_prescaler
+                0x0000000008000cd6        0x4 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
+                0x0000000008000cd6                timer_set_prescaler
  .text.timer_set_period
-                0x0000000008000c9a        0x4 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
-                0x0000000008000c9a                timer_set_period
- *fill*         0x0000000008000c9e        0x2 
+                0x0000000008000cda        0x4 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
+                0x0000000008000cda                timer_set_period
+ *fill*         0x0000000008000cde        0x2 
  .text.timer_set_oc_mode
-                0x0000000008000ca0      0x14c ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
-                0x0000000008000ca0                timer_set_oc_mode
+                0x0000000008000ce0      0x14c ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
+                0x0000000008000ce0                timer_set_oc_mode
  .text.timer_enable_oc_output
-                0x0000000008000dec       0x36 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
-                0x0000000008000dec                timer_enable_oc_output
+                0x0000000008000e2c       0x36 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
+                0x0000000008000e2c                timer_enable_oc_output
  .text.timer_set_oc_value
-                0x0000000008000e22       0x26 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
-                0x0000000008000e22                timer_set_oc_value
+                0x0000000008000e62       0x26 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
+                0x0000000008000e62                timer_set_oc_value
  .text.gpio_set
-                0x0000000008000e48        0x4 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
-                0x0000000008000e48                gpio_set
+                0x0000000008000e88        0x4 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
+                0x0000000008000e88                gpio_set
  .text.gpio_clear
-                0x0000000008000e4c        0x6 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
-                0x0000000008000e4c                gpio_clear
+                0x0000000008000e8c        0x6 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
+                0x0000000008000e8c                gpio_clear
  .text.gpio_get
-                0x0000000008000e52        0x6 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
-                0x0000000008000e52                gpio_get
+                0x0000000008000e92        0x6 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
+                0x0000000008000e92                gpio_get
  .text.gpio_mode_setup
-                0x0000000008000e58       0x3c ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
-                0x0000000008000e58                gpio_mode_setup
+                0x0000000008000e98       0x3c ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
+                0x0000000008000e98                gpio_mode_setup
  .text.gpio_set_output_options
-                0x0000000008000e94       0x36 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
-                0x0000000008000e94                gpio_set_output_options
+                0x0000000008000ed4       0x36 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
+                0x0000000008000ed4                gpio_set_output_options
  .text.gpio_set_af
-                0x0000000008000eca       0x4e ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
-                0x0000000008000eca                gpio_set_af
+                0x0000000008000f0a       0x4e ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
+                0x0000000008000f0a                gpio_set_af
  .text.rcc_peripheral_enable_clock
-                0x0000000008000f18        0x8 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc_common_all.o)
-                0x0000000008000f18                rcc_peripheral_enable_clock
+                0x0000000008000f58        0x8 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc_common_all.o)
+                0x0000000008000f58                rcc_peripheral_enable_clock
  .text.rcc_periph_clock_enable
-                0x0000000008000f20       0x20 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc_common_all.o)
-                0x0000000008000f20                rcc_periph_clock_enable
+                0x0000000008000f60       0x20 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc_common_all.o)
+                0x0000000008000f60                rcc_periph_clock_enable
  .text.exti_set_trigger
-                0x0000000008000f40       0x40 ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
-                0x0000000008000f40                exti_set_trigger
+                0x0000000008000f80       0x40 ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
+                0x0000000008000f80                exti_set_trigger
  .text.exti_enable_request
-                0x0000000008000f80       0x1c ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
-                0x0000000008000f80                exti_enable_request
+                0x0000000008000fc0       0x1c ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
+                0x0000000008000fc0                exti_enable_request
  .text.exti_reset_request
-                0x0000000008000f9c        0xc ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
-                0x0000000008000f9c                exti_reset_request
+                0x0000000008000fdc        0xc ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
+                0x0000000008000fdc                exti_reset_request
  .text.exti_select_source
-                0x0000000008000fa8       0x6c ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
-                0x0000000008000fa8                exti_select_source
+                0x0000000008000fe8       0x6c ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
+                0x0000000008000fe8                exti_select_source
  .text.blocking_handler
-                0x0000000008001014        0x2 ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
-                0x0000000008001014                rtc_isr
-                0x0000000008001014                blocking_handler
-                0x0000000008001014                tsc_isr
-                0x0000000008001014                spi1_isr
-                0x0000000008001014                i2c1_isr
-                0x0000000008001014                i2c2_isr
-                0x0000000008001014                usart1_isr
-                0x0000000008001014                reserved4_isr
-                0x0000000008001014                reserved5_isr
-                0x0000000008001014                lptim1_isr
-                0x0000000008001014                pvd_isr
-                0x0000000008001014                lpuart1_isr
-                0x0000000008001014                rcc_isr
-                0x0000000008001014                reserved3_isr
-                0x0000000008001014                flash_isr
-                0x0000000008001014                hard_fault_handler
-                0x0000000008001014                spi2_isr
-                0x0000000008001014                usb_isr
-                0x0000000008001014                usart2_isr
-                0x0000000008001014                adc_comp_isr
-                0x0000000008001014                reserved2_isr
-                0x0000000008001014                reserved1_isr
-                0x0000000008001014                dma1_channel1_isr
-                0x0000000008001014                tim6_dac_isr
-                0x0000000008001014                lcd_isr
-                0x0000000008001014                dma1_channel2_3_isr
-                0x0000000008001014                tim22_isr
-                0x0000000008001014                wwdg_isr
-                0x0000000008001014                tim2_isr
-                0x0000000008001014                dma1_channel4_5_isr
-                0x0000000008001014                exti0_1_isr
+                0x0000000008001054        0x2 ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
+                0x0000000008001054                rtc_isr
+                0x0000000008001054                blocking_handler
+                0x0000000008001054                tsc_isr
+                0x0000000008001054                spi1_isr
+                0x0000000008001054                i2c1_isr
+                0x0000000008001054                i2c2_isr
+                0x0000000008001054                usart1_isr
+                0x0000000008001054                reserved4_isr
+                0x0000000008001054                reserved5_isr
+                0x0000000008001054                lptim1_isr
+                0x0000000008001054                pvd_isr
+                0x0000000008001054                lpuart1_isr
+                0x0000000008001054                rcc_isr
+                0x0000000008001054                reserved3_isr
+                0x0000000008001054                flash_isr
+                0x0000000008001054                hard_fault_handler
+                0x0000000008001054                spi2_isr
+                0x0000000008001054                usb_isr
+                0x0000000008001054                usart2_isr
+                0x0000000008001054                adc_comp_isr
+                0x0000000008001054                reserved2_isr
+                0x0000000008001054                reserved1_isr
+                0x0000000008001054                dma1_channel1_isr
+                0x0000000008001054                tim6_dac_isr
+                0x0000000008001054                lcd_isr
+                0x0000000008001054                dma1_channel2_3_isr
+                0x0000000008001054                tim22_isr
+                0x0000000008001054                wwdg_isr
+                0x0000000008001054                tim2_isr
+                0x0000000008001054                dma1_channel4_5_isr
+                0x0000000008001054                exti0_1_isr
  .text.null_handler
-                0x0000000008001016        0x2 ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
-                0x0000000008001016                null_handler
-                0x0000000008001016                sv_call_handler
-                0x0000000008001016                pend_sv_handler
-                0x0000000008001016                nmi_handler
+                0x0000000008001056        0x2 ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
+                0x0000000008001056                null_handler
+                0x0000000008001056                sv_call_handler
+                0x0000000008001056                pend_sv_handler
+                0x0000000008001056                nmi_handler
  .text.reset_handler
-                0x0000000008001018       0x8c ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
-                0x0000000008001018                reset_handler
+                0x0000000008001058       0x8c ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
+                0x0000000008001058                reset_handler
  .text.systick_set_reload
-                0x00000000080010a4       0x10 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
-                0x00000000080010a4                systick_set_reload
+                0x00000000080010e4       0x10 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
+                0x00000000080010e4                systick_set_reload
  .text.systick_set_clocksource
-                0x00000000080010b4       0x14 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
-                0x00000000080010b4                systick_set_clocksource
+                0x00000000080010f4       0x14 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
+                0x00000000080010f4                systick_set_clocksource
  .text.systick_interrupt_enable
-                0x00000000080010c8       0x10 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
-                0x00000000080010c8                systick_interrupt_enable
+                0x0000000008001108       0x10 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
+                0x0000000008001108                systick_interrupt_enable
  .text.systick_counter_enable
-                0x00000000080010d8       0x10 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
-                0x00000000080010d8                systick_counter_enable
+                0x0000000008001118       0x10 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
+                0x0000000008001118                systick_counter_enable
  .text.nvic_enable_irq
-                0x00000000080010e8       0x18 ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
-                0x00000000080010e8                nvic_enable_irq
+                0x0000000008001128       0x18 ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
+                0x0000000008001128                nvic_enable_irq
  .text.nvic_set_priority
-                0x0000000008001100       0x1c ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
-                0x0000000008001100                nvic_set_priority
- .text          0x000000000800111c       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_sqi.o)
-                0x000000000800111c                __gnu_thumb1_case_sqi
- .text          0x0000000008001130       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_uqi.o)
-                0x0000000008001130                __gnu_thumb1_case_uqi
- .text          0x0000000008001144      0x1e0 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divsi3.o)
-                0x0000000008001144                __aeabi_idiv
-                0x0000000008001144                __divsi3
-                0x0000000008001310                __aeabi_idivmod
- .text          0x0000000008001324        0x4 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
-                0x0000000008001324                __aeabi_ldiv0
-                0x0000000008001324                __aeabi_idiv0
-                0x0000000008001328                . = ALIGN (0x4)
+                0x0000000008001140       0x1c ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
+                0x0000000008001140                nvic_set_priority
+ .text          0x000000000800115c       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_sqi.o)
+                0x000000000800115c                __gnu_thumb1_case_sqi
+ .text          0x0000000008001170       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_uqi.o)
+                0x0000000008001170                __gnu_thumb1_case_uqi
+ .text          0x0000000008001184      0x1e0 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divsi3.o)
+                0x0000000008001184                __aeabi_idiv
+                0x0000000008001184                __divsi3
+                0x0000000008001350                __aeabi_idivmod
+ .text          0x0000000008001364        0x4 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
+                0x0000000008001364                __aeabi_ldiv0
+                0x0000000008001364                __aeabi_idiv0
+                0x0000000008001368                . = ALIGN (0x4)
  *(.rodata*)
  .rodata.gamma_lookup
-                0x0000000008001328      0x800 HAL.o
-                0x0000000008001b28                . = ALIGN (0x4)
+                0x0000000008001368      0x800 HAL.o
+                0x0000000008001b68                . = ALIGN (0x4)
 
-.glue_7         0x0000000008001b28        0x0
- .glue_7        0x0000000008001b28        0x0 linker stubs
+.glue_7         0x0000000008001b68        0x0
+ .glue_7        0x0000000008001b68        0x0 linker stubs
 
-.glue_7t        0x0000000008001b28        0x0
- .glue_7t       0x0000000008001b28        0x0 linker stubs
+.glue_7t        0x0000000008001b68        0x0
+ .glue_7t       0x0000000008001b68        0x0 linker stubs
 
-.vfp11_veneer   0x0000000008001b28        0x0
- .vfp11_veneer  0x0000000008001b28        0x0 linker stubs
+.vfp11_veneer   0x0000000008001b68        0x0
+ .vfp11_veneer  0x0000000008001b68        0x0 linker stubs
 
-.v4_bx          0x0000000008001b28        0x0
- .v4_bx         0x0000000008001b28        0x0 linker stubs
+.v4_bx          0x0000000008001b68        0x0
+ .v4_bx         0x0000000008001b68        0x0 linker stubs
 
-.iplt           0x0000000008001b28        0x0
- .iplt          0x0000000008001b28        0x0 comm.o
+.iplt           0x0000000008001b68        0x0
+ .iplt          0x0000000008001b68        0x0 comm.o
 
-.rel.dyn        0x0000000008001b28        0x0
- .rel.iplt      0x0000000008001b28        0x0 comm.o
+.rel.dyn        0x0000000008001b68        0x0
+ .rel.iplt      0x0000000008001b68        0x0 comm.o
 
-.preinit_array  0x0000000008001b28        0x0
-                0x0000000008001b28                . = ALIGN (0x4)
-                0x0000000008001b28                __preinit_array_start = .
+.preinit_array  0x0000000008001b68        0x0
+                0x0000000008001b68                . = ALIGN (0x4)
+                0x0000000008001b68                __preinit_array_start = .
  *(.preinit_array)
-                0x0000000008001b28                __preinit_array_end = .
+                0x0000000008001b68                __preinit_array_end = .
 
-.init_array     0x0000000008001b28        0x0
-                0x0000000008001b28                . = ALIGN (0x4)
-                0x0000000008001b28                __init_array_start = .
+.init_array     0x0000000008001b68        0x0
+                0x0000000008001b68                . = ALIGN (0x4)
+                0x0000000008001b68                __init_array_start = .
  *(SORT(.init_array.*))
  *(.init_array)
-                0x0000000008001b28                __init_array_end = .
+                0x0000000008001b68                __init_array_end = .
 
-.fini_array     0x0000000008001b28        0x0
-                0x0000000008001b28                . = ALIGN (0x4)
-                0x0000000008001b28                __fini_array_start = .
+.fini_array     0x0000000008001b68        0x0
+                0x0000000008001b68                . = ALIGN (0x4)
+                0x0000000008001b68                __fini_array_start = .
  *(.fini_array)
  *(SORT(.fini_array.*))
-                0x0000000008001b28                __fini_array_end = .
+                0x0000000008001b68                __fini_array_end = .
 
 .ARM.extab
  *(.ARM.extab*)
 
-.ARM.exidx      0x0000000008001b28        0x0
-                0x0000000008001b28                __exidx_start = .
+.ARM.exidx      0x0000000008001b68        0x0
+                0x0000000008001b68                __exidx_start = .
  *(.ARM.exidx*)
-                0x0000000008001b28                __exidx_end = .
-                0x0000000008001b28                . = ALIGN (0x4)
-                0x0000000008001b28                _etext = .
+                0x0000000008001b68                __exidx_end = .
+                0x0000000008001b68                . = ALIGN (0x4)
+                0x0000000008001b68                _etext = .
 
-.data           0x0000000020000000       0x24 load address 0x0000000008001b28
+.data           0x0000000020000000       0x24 load address 0x0000000008001b68
                 0x0000000020000000                _data = .
  *(.data*)
  .data.active_output_ports
@@ -898,12 +898,12 @@ END GROUP
                 0x0000000020000020                input_pins
                 0x0000000020000024                . = ALIGN (0x4)
                 0x0000000020000024                _edata = .
-                0x0000000008001b28                _data_loadaddr = LOADADDR (.data)
+                0x0000000008001b68                _data_loadaddr = LOADADDR (.data)
 
-.igot.plt       0x0000000020000024        0x0 load address 0x0000000008001b4c
+.igot.plt       0x0000000020000024        0x0 load address 0x0000000008001b8c
  .igot.plt      0x0000000020000024        0x0 comm.o
 
-.bss            0x0000000020000024       0x84 load address 0x0000000008001b4c
+.bss            0x0000000020000024       0x90 load address 0x0000000008001b8c
  *(.bss*)
  .bss.dendrite_ping_flag
                 0x0000000020000024        0x2 comm.o
@@ -914,64 +914,71 @@ END GROUP
  .bss.nid_ping_time
                 0x000000002000002c        0x4 comm.o
                 0x000000002000002c                nid_ping_time
+ .bss.active_input_ticks
+                0x0000000020000030        0xb comm.o
+                0x0000000020000030                active_input_ticks
+ *fill*         0x000000002000003b        0x1 
  .bss.active_input_pins
-                0x0000000020000030        0x4 comm.o
-                0x0000000020000030                active_input_pins
+                0x000000002000003c        0x4 comm.o
+                0x000000002000003c                active_input_pins
  .bss.nid_port_out
-                0x0000000020000034        0x4 comm.o
-                0x0000000020000034                nid_port_out
+                0x0000000020000040        0x4 comm.o
+                0x0000000020000040                nid_port_out
  .bss.blink_flag
-                0x0000000020000038        0x1 comm.o
-                0x0000000020000038                blink_flag
- *fill*         0x0000000020000039        0x3 
+                0x0000000020000044        0x1 comm.o
+                0x0000000020000044                blink_flag
+ *fill*         0x0000000020000045        0x3 
  .bss.write_buffer
-                0x000000002000003c       0x44 comm.o
-                0x000000002000003c                write_buffer
+                0x0000000020000048       0x44 comm.o
+                0x0000000020000048                write_buffer
  .bss.dendrite_pulse_flag
-                0x0000000020000080        0x2 comm.o
-                0x0000000020000080                dendrite_pulse_flag
- .bss.identify_channel
-                0x0000000020000082        0x1 comm.o
-                0x0000000020000082                identify_channel
- *fill*         0x0000000020000083        0x1 
- .bss.message_buffer
-                0x0000000020000084        0x8 comm.o
-                0x0000000020000084                message_buffer
- .bss.nid_pin_out
                 0x000000002000008c        0x2 comm.o
-                0x000000002000008c                nid_pin_out
- .bss.nid_pin   0x000000002000008e        0x2 comm.o
-                0x000000002000008e                nid_pin
+                0x000000002000008c                dendrite_pulse_flag
+ .bss.identify_channel
+                0x000000002000008e        0x1 comm.o
+                0x000000002000008e                identify_channel
+ *fill*         0x000000002000008f        0x1 
+ .bss.message_buffer
+                0x0000000020000090        0x8 comm.o
+                0x0000000020000090                message_buffer
+ .bss.nid_pin_out
+                0x0000000020000098        0x2 comm.o
+                0x0000000020000098                nid_pin_out
+ .bss.nid_pin   0x000000002000009a        0x2 comm.o
+                0x000000002000009a                nid_pin
  .bss.message_buffer_count
-                0x0000000020000090        0x2 comm.o
-                0x0000000020000090                message_buffer_count
- *fill*         0x0000000020000092        0x2 
+                0x000000002000009c        0x2 comm.o
+                0x000000002000009c                message_buffer_count
+ *fill*         0x000000002000009e        0x2 
  .bss.sensor1_time
-                0x0000000020000094        0x4 HAL.o
-                0x0000000020000094                sensor1_time
- .bss.tick      0x0000000020000098        0x1 HAL.o
-                0x0000000020000098                tick
- *fill*         0x0000000020000099        0x3 
+                0x00000000200000a0        0x4 HAL.o
+                0x00000000200000a0                sensor1_time
+ .bss.tick      0x00000000200000a4        0x1 HAL.o
+                0x00000000200000a4                tick
+ *fill*         0x00000000200000a5        0x3 
  .bss.sensor0_time
-                0x000000002000009c        0x4 HAL.o
-                0x000000002000009c                sensor0_time
+                0x00000000200000a8        0x4 HAL.o
+                0x00000000200000a8                sensor0_time
  .bss.main_tick
-                0x00000000200000a0        0x1 HAL.o
-                0x00000000200000a0                main_tick
+                0x00000000200000ac        0x1 HAL.o
+                0x00000000200000ac                main_tick
  .bss.touch_tick
-                0x00000000200000a1        0x1 HAL.o
-                0x00000000200000a1                touch_tick
- *fill*         0x00000000200000a2        0x2 
- .bss.led       0x00000000200000a4        0x4 main.o
-                0x00000000200000a4                led
+                0x00000000200000ad        0x1 HAL.o
+                0x00000000200000ad                touch_tick
+ .bss.read_tick
+                0x00000000200000ae        0x1 HAL.o
+                0x00000000200000ae                read_tick
+ *fill*         0x00000000200000af        0x1 
+ .bss.led       0x00000000200000b0        0x4 main.o
+                0x00000000200000b0                led
  *(COMMON)
-                0x00000000200000a8                . = ALIGN (0x4)
-                0x00000000200000a8                _ebss = .
+                0x00000000200000b4                . = ALIGN (0x4)
+                0x00000000200000b4                _ebss = .
 
 /DISCARD/
  *(.eh_frame)
-                0x00000000200000a8                . = ALIGN (0x4)
-                0x00000000200000a8                end = .
+                0x00000000200000b4                . = ALIGN (0x4)
+                0x00000000200000b4                end = .
                 0x0000000020000800                PROVIDE (_stack, (ORIGIN (ram) + LENGTH (ram)))
                 0x0000000008003e00                _fingerprint_start = 0x8003e00
 
@@ -980,58 +987,58 @@ END GROUP
  .fingerprint   0x0000000008003e00        0xc main.o
 OUTPUT(main.elf elf32-littlearm)
 
-.debug_info     0x0000000000000000     0x4c2f
- .debug_info    0x0000000000000000      0x6e2 comm.o
- .debug_info    0x00000000000006e2     0x1028 HAL.o
- .debug_info    0x000000000000170a      0x53f neuron.o
- .debug_info    0x0000000000001c49      0x5c4 main.o
- .debug_info    0x000000000000220d      0x3d4 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
- .debug_info    0x00000000000025e1     0x116a ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
- .debug_info    0x000000000000374b      0x22c ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
- .debug_info    0x0000000000003977      0x1f3 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
- .debug_info    0x0000000000003b6a      0x575 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc_common_all.o)
- .debug_info    0x00000000000040df      0x204 ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
- .debug_info    0x00000000000042e3      0x2a3 ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
- .debug_info    0x0000000000004586      0x215 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
- .debug_info    0x000000000000479b      0x1b0 ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
- .debug_info    0x000000000000494b       0xb9 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_sqi.o)
- .debug_info    0x0000000000004a04       0xb9 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_uqi.o)
- .debug_info    0x0000000000004abd       0xb9 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divsi3.o)
- .debug_info    0x0000000000004b76       0xb9 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
+.debug_info     0x0000000000000000     0x4c8d
+ .debug_info    0x0000000000000000      0x72f comm.o
+ .debug_info    0x000000000000072f     0x1039 HAL.o
+ .debug_info    0x0000000000001768      0x53f neuron.o
+ .debug_info    0x0000000000001ca7      0x5c4 main.o
+ .debug_info    0x000000000000226b      0x3d4 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
+ .debug_info    0x000000000000263f     0x116a ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
+ .debug_info    0x00000000000037a9      0x22c ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
+ .debug_info    0x00000000000039d5      0x1f3 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
+ .debug_info    0x0000000000003bc8      0x575 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc_common_all.o)
+ .debug_info    0x000000000000413d      0x204 ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
+ .debug_info    0x0000000000004341      0x2a3 ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
+ .debug_info    0x00000000000045e4      0x215 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
+ .debug_info    0x00000000000047f9      0x1b0 ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
+ .debug_info    0x00000000000049a9       0xb9 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_sqi.o)
+ .debug_info    0x0000000000004a62       0xb9 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_uqi.o)
+ .debug_info    0x0000000000004b1b       0xb9 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divsi3.o)
+ .debug_info    0x0000000000004bd4       0xb9 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
 
-.debug_abbrev   0x0000000000000000     0x11ff
- .debug_abbrev  0x0000000000000000      0x250 comm.o
- .debug_abbrev  0x0000000000000250      0x25a HAL.o
- .debug_abbrev  0x00000000000004aa      0x1db neuron.o
- .debug_abbrev  0x0000000000000685      0x1b1 main.o
- .debug_abbrev  0x0000000000000836      0x18d ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
- .debug_abbrev  0x00000000000009c3      0x168 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
- .debug_abbrev  0x0000000000000b2b      0x10e ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
- .debug_abbrev  0x0000000000000c39       0xb7 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
- .debug_abbrev  0x0000000000000cf0       0xd0 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc_common_all.o)
- .debug_abbrev  0x0000000000000dc0       0xe5 ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
- .debug_abbrev  0x0000000000000ea5      0x12b ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
- .debug_abbrev  0x0000000000000fd0      0x139 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
- .debug_abbrev  0x0000000000001109       0xa6 ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
- .debug_abbrev  0x00000000000011af       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_sqi.o)
- .debug_abbrev  0x00000000000011c3       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_uqi.o)
- .debug_abbrev  0x00000000000011d7       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divsi3.o)
- .debug_abbrev  0x00000000000011eb       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
+.debug_abbrev   0x0000000000000000     0x121d
+ .debug_abbrev  0x0000000000000000      0x26e comm.o
+ .debug_abbrev  0x000000000000026e      0x25a HAL.o
+ .debug_abbrev  0x00000000000004c8      0x1db neuron.o
+ .debug_abbrev  0x00000000000006a3      0x1b1 main.o
+ .debug_abbrev  0x0000000000000854      0x18d ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
+ .debug_abbrev  0x00000000000009e1      0x168 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
+ .debug_abbrev  0x0000000000000b49      0x10e ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
+ .debug_abbrev  0x0000000000000c57       0xb7 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
+ .debug_abbrev  0x0000000000000d0e       0xd0 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc_common_all.o)
+ .debug_abbrev  0x0000000000000dde       0xe5 ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
+ .debug_abbrev  0x0000000000000ec3      0x12b ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
+ .debug_abbrev  0x0000000000000fee      0x139 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
+ .debug_abbrev  0x0000000000001127       0xa6 ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
+ .debug_abbrev  0x00000000000011cd       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_sqi.o)
+ .debug_abbrev  0x00000000000011e1       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_uqi.o)
+ .debug_abbrev  0x00000000000011f5       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divsi3.o)
+ .debug_abbrev  0x0000000000001209       0x14 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
 
-.debug_loc      0x0000000000000000     0x1edd
- .debug_loc     0x0000000000000000      0x3cc comm.o
- .debug_loc     0x00000000000003cc      0x28b HAL.o
- .debug_loc     0x0000000000000657      0x1d5 neuron.o
- .debug_loc     0x000000000000082c      0x119 main.o
- .debug_loc     0x0000000000000945      0x278 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
- .debug_loc     0x0000000000000bbd      0xc30 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
- .debug_loc     0x00000000000017ed       0x76 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
- .debug_loc     0x0000000000001863      0x17f ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
- .debug_loc     0x00000000000019e2      0x108 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc_common_all.o)
- .debug_loc     0x0000000000001aea      0x174 ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
- .debug_loc     0x0000000000001c5e       0xba ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
- .debug_loc     0x0000000000001d18       0xc5 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
- .debug_loc     0x0000000000001ddd      0x100 ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
+.debug_loc      0x0000000000000000     0x1f65
+ .debug_loc     0x0000000000000000      0x454 comm.o
+ .debug_loc     0x0000000000000454      0x28b HAL.o
+ .debug_loc     0x00000000000006df      0x1d5 neuron.o
+ .debug_loc     0x00000000000008b4      0x119 main.o
+ .debug_loc     0x00000000000009cd      0x278 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
+ .debug_loc     0x0000000000000c45      0xc30 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
+ .debug_loc     0x0000000000001875       0x76 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
+ .debug_loc     0x00000000000018eb      0x17f ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
+ .debug_loc     0x0000000000001a6a      0x108 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc_common_all.o)
+ .debug_loc     0x0000000000001b72      0x174 ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
+ .debug_loc     0x0000000000001ce6       0xba ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
+ .debug_loc     0x0000000000001da0       0xc5 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
+ .debug_loc     0x0000000000001e65      0x100 ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
 
 .debug_aranges  0x0000000000000000      0x718
  .debug_aranges
@@ -1084,51 +1091,51 @@ OUTPUT(main.elf elf32-littlearm)
  .debug_ranges  0x0000000000000560       0x80 ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
  .debug_ranges  0x00000000000005e0       0x40 ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
 
-.debug_line     0x0000000000000000     0x2888
- .debug_line    0x0000000000000000      0x224 comm.o
- .debug_line    0x0000000000000224      0x368 HAL.o
- .debug_line    0x000000000000058c      0x1b5 neuron.o
- .debug_line    0x0000000000000741       0xf7 main.o
- .debug_line    0x0000000000000838      0x3a2 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
- .debug_line    0x0000000000000bda      0x8b6 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
- .debug_line    0x0000000000001490      0x2bb ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
- .debug_line    0x000000000000174b      0x2a8 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
- .debug_line    0x00000000000019f3      0x2c7 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc_common_all.o)
- .debug_line    0x0000000000001cba      0x31a ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
- .debug_line    0x0000000000001fd4      0x292 ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
- .debug_line    0x0000000000002266      0x24b ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
- .debug_line    0x00000000000024b1      0x23a ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
- .debug_line    0x00000000000026eb       0x66 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_sqi.o)
- .debug_line    0x0000000000002751       0x66 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_uqi.o)
- .debug_line    0x00000000000027b7       0x73 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divsi3.o)
- .debug_line    0x000000000000282a       0x5e /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
+.debug_line     0x0000000000000000     0x289c
+ .debug_line    0x0000000000000000      0x237 comm.o
+ .debug_line    0x0000000000000237      0x369 HAL.o
+ .debug_line    0x00000000000005a0      0x1b5 neuron.o
+ .debug_line    0x0000000000000755       0xf7 main.o
+ .debug_line    0x000000000000084c      0x3a2 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
+ .debug_line    0x0000000000000bee      0x8b6 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
+ .debug_line    0x00000000000014a4      0x2bb ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
+ .debug_line    0x000000000000175f      0x2a8 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
+ .debug_line    0x0000000000001a07      0x2c7 ../../libopencm3/lib/libopencm3_stm32l0.a(rcc_common_all.o)
+ .debug_line    0x0000000000001cce      0x31a ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
+ .debug_line    0x0000000000001fe8      0x292 ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
+ .debug_line    0x000000000000227a      0x24b ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
+ .debug_line    0x00000000000024c5      0x23a ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
+ .debug_line    0x00000000000026ff       0x66 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_sqi.o)
+ .debug_line    0x0000000000002765       0x66 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_thumb1_case_uqi.o)
+ .debug_line    0x00000000000027cb       0x73 /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_divsi3.o)
+ .debug_line    0x000000000000283e       0x5e /usr/lib/gcc/arm-none-eabi/4.9.3/armv6-m/libgcc.a(_dvmd_tls.o)
 
-.debug_str      0x0000000000000000    0x11416
- .debug_str     0x0000000000000000      0x405 comm.o
-                                        0x4c1 (size before relaxing)
- .debug_str     0x0000000000000405      0x763 HAL.o
-                                        0x955 (size before relaxing)
- .debug_str     0x0000000000000b68      0x201 neuron.o
+.debug_str      0x0000000000000000    0x11433
+ .debug_str     0x0000000000000000      0x422 comm.o
+                                        0x4de (size before relaxing)
+ .debug_str     0x0000000000000422      0x763 HAL.o
+                                        0x95f (size before relaxing)
+ .debug_str     0x0000000000000b85      0x201 neuron.o
                                         0x452 (size before relaxing)
- .debug_str     0x0000000000000d69       0x64 main.o
+ .debug_str     0x0000000000000d86       0x64 main.o
                                         0x4ad (size before relaxing)
- .debug_str     0x0000000000000dcd     0x633b ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
+ .debug_str     0x0000000000000dea     0x633b ../../libopencm3/lib/libopencm3_stm32l0.a(rcc.o)
                                        0x651a (size before relaxing)
- .debug_str     0x0000000000007108     0x6177 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
+ .debug_str     0x0000000000007125     0x6177 ../../libopencm3/lib/libopencm3_stm32l0.a(timer_common_all.o)
                                        0xc595 (size before relaxing)
- .debug_str     0x000000000000d27f     0x14ec ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
+ .debug_str     0x000000000000d29c     0x14ec ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_all.o)
                                        0x51fd (size before relaxing)
- .debug_str     0x000000000000e76b       0x61 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
+ .debug_str     0x000000000000e788       0x61 ../../libopencm3/lib/libopencm3_stm32l0.a(gpio_common_f0234.o)
                                        0x521f (size before relaxing)
- .debug_str     0x000000000000e7cc      0x11f ../../libopencm3/lib/libopencm3_stm32l0.a(rcc_common_all.o)
+ .debug_str     0x000000000000e7e9      0x11f ../../libopencm3/lib/libopencm3_stm32l0.a(rcc_common_all.o)
                                        0x683d (size before relaxing)
- .debug_str     0x000000000000e8eb      0xbb8 ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
+ .debug_str     0x000000000000e908      0xbb8 ../../libopencm3/lib/libopencm3_stm32l0.a(exti_common_all.o)
                                        0x5dc0 (size before relaxing)
- .debug_str     0x000000000000f4a3     0x12ef ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
+ .debug_str     0x000000000000f4c0     0x12ef ../../libopencm3/lib/libopencm3_stm32l0.a(vector.o)
                                        0x4745 (size before relaxing)
- .debug_str     0x0000000000010792      0x2eb ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
+ .debug_str     0x00000000000107af      0x2eb ../../libopencm3/lib/libopencm3_stm32l0.a(systick.o)
                                        0x37b2 (size before relaxing)
- .debug_str     0x0000000000010a7d      0x999 ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
+ .debug_str     0x0000000000010a9a      0x999 ../../libopencm3/lib/libopencm3_stm32l0.a(nvic.o)
                                        0x4252 (size before relaxing)
 
 .comment        0x0000000000000000       0x38
