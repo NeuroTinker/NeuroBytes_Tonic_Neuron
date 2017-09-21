@@ -9,6 +9,8 @@ uint8_t message_buffer_count[2];
 
 volatile uint16_t active_input_pins[2] = {0,0};
 
+volatile uint8_t active_input_ticks[11] = {0,0,0,0,0,0,0,0,0,0,0};
+
 volatile uint16_t active_output_pins[2] = {PIN_AXON1_EX, PIN_AXON2_EX};
 
 volatile uint32_t dendrite_pulses[4] = {0,0,0,0};
@@ -81,8 +83,7 @@ void readInputs(void)
 
     for (i=0; i<NUM_INPUTS; i++){
         // read each input that is currently receiving a message
-        if (active_input_pins[i] != 0){
-
+        if (active_input_pins[i] != 0 && active_input_ticks[i] == read_tick){
             // get new input value
             value = gpio_get(active_input_ports[i], active_input_pins[i]); // returns uint16 where bit position corresponds to pin number
             if (value != 0){
@@ -303,15 +304,22 @@ void write()
 void writeDownstream(void)
 {
     uint32_t value;
+    uint32_t i;
     value = write_buffer.downstream[0] & 0x80000000;
     write_buffer.downstream[0] <<= 1;
 
     // we should have both axon out pins be on the same port that way they can be written together
     if (value != 0){
         gpio_set(PORT_AXON1_EX, PIN_AXON1_EX);
+        for (i=0; i<100; i++){
+            __asm__("NOP");
+        }
         gpio_set(PORT_AXON2_EX, PIN_AXON2_EX);
     }else{
         gpio_clear(PORT_AXON1_EX, PIN_AXON1_EX);
+        for (i=0; i<100; i++){
+            __asm__("NOP");
+        }
         gpio_clear(PORT_AXON2_EX, PIN_AXON2_EX);
     }
 }

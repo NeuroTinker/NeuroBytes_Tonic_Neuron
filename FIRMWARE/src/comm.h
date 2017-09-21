@@ -107,6 +107,7 @@ typedef struct{
 
 extern uint16_t complimentary_pins[2];
 extern volatile uint16_t active_input_pins[2];
+extern volatile uint8_t active_input_ticks[11];
 extern uint32_t active_input_ports[2];
 extern volatile uint16_t active_output_pins[2];
 extern uint32_t active_output_ports[2];
