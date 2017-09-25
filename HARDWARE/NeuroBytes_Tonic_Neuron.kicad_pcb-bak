@@ -2288,17 +2288,17 @@
   )
 
   (module KiCad_Footprints:ZF_SMD_NonPol_0402 (layer B.Cu) (tedit 591B0B98) (tstamp 59C6C88E)
-    (at 194.75 68.65)
+    (at 195 68.2 225)
     (path /59C6B5F3)
-    (fp_text reference R7 (at 0 -1.5) (layer B.Fab)
+    (fp_text reference R7 (at 0 -1.5 225) (layer B.Fab)
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
-    (fp_text value 1k (at 0 1.5) (layer B.Fab) hide
+    (fp_text value 1k (at 0 1.5 225) (layer B.Fab) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
-    (pad 1 smd rect (at -0.6 0) (size 0.8 0.5) (layers B.Cu B.Paste B.Mask)
+    (pad 1 smd rect (at -0.6 0 225) (size 0.8 0.5) (layers B.Cu B.Paste B.Mask)
       (net 35 "Net-(Q1-Pad1)"))
-    (pad 2 smd rect (at 0.6 0) (size 0.8 0.5) (layers B.Cu B.Paste B.Mask)
+    (pad 2 smd rect (at 0.6 0 225) (size 0.8 0.5) (layers B.Cu B.Paste B.Mask)
       (net 21 LED_R))
     (model Resistors_SMD.3dshapes/R_0402.wrl
       (at (xyz 0 0 0))
@@ -2308,17 +2308,17 @@
   )
 
   (module KiCad_Footprints:ZF_SMD_NonPol_0402 (layer B.Cu) (tedit 591B0B98) (tstamp 59C6C894)
-    (at 195 69.9)
+    (at 194.4 67.6 225)
     (path /59C6B765)
-    (fp_text reference R8 (at 0 -1.5) (layer B.Fab)
+    (fp_text reference R8 (at 0 -1.5 225) (layer B.Fab)
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
-    (fp_text value 1k (at 0 1.5) (layer B.Fab) hide
+    (fp_text value 1k (at 0 1.5 225) (layer B.Fab) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
-    (pad 1 smd rect (at -0.6 0) (size 0.8 0.5) (layers B.Cu B.Paste B.Mask)
+    (pad 1 smd rect (at -0.6 0 225) (size 0.8 0.5) (layers B.Cu B.Paste B.Mask)
       (net 36 "Net-(Q2-Pad1)"))
-    (pad 2 smd rect (at 0.6 0) (size 0.8 0.5) (layers B.Cu B.Paste B.Mask)
+    (pad 2 smd rect (at 0.6 0 225) (size 0.8 0.5) (layers B.Cu B.Paste B.Mask)
       (net 22 LED_G))
     (model Resistors_SMD.3dshapes/R_0402.wrl
       (at (xyz 0 0 0))
