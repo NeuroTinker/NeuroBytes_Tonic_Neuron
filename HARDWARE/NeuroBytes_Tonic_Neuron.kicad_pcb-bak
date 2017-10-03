@@ -3,16 +3,24 @@
   (general
     (links 73)
     (no_connects 8)
-    (area 151.126667 58.081428 208.589752 82.489752)
+    (area 139 41.8 235.857146 119.825)
     (thickness 1.6)
-    (drawings 71)
+    (drawings 75)
     (tracks 391)
     (zones 0)
     (modules 28)
     (nets 39)
   )
 
-  (page A4)
+  (page B)
+  (title_block
+    (title "NeuroBytes Tonic Neuron")
+    (date 2017-10-01)
+    (rev A)
+    (company "NeuroTinker, LLC")
+    (comment 1 "License: GPL v3")
+  )
+
   (layers
     (0 F.Cu signal)
     (31 B.Cu signal)
@@ -2384,6 +2392,10 @@
       (net 2 GND))
   )
 
+  (gr_line (start 151.25 79) (end 155.25 79) (layer F.Fab) (width 0.2))
+  (gr_line (start 153.25 79) (end 151.25 79) (layer F.Fab) (width 0.2))
+  (gr_line (start 153.25 81) (end 153.25 79) (layer F.Fab) (width 0.2))
+  (gr_line (start 153.25 77) (end 153.25 81) (layer F.Fab) (width 0.2))
   (gr_line (start 157.25 45) (end 162.25 45) (layer F.Fab) (width 0.2))
   (gr_line (start 151.25 68) (end 151.25 66) (layer F.Fab) (width 0.2))
   (gr_line (start 151.25 68) (end 149.25 68) (layer F.Fab) (width 0.2))
