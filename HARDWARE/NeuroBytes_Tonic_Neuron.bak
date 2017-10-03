@@ -35,11 +35,11 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title "NeuroBytes v1.01 Board"
-Date "2017-03-01"
-Rev "v1.01"
+Title "NeuroBytes Tonic Neuron"
+Date "2017-10-01"
+Rev "A"
 Comp "NeuroTinker, LLC"
-Comment1 "Ordered 18 boards 3/1/2017"
+Comment1 "License: GPL v3"
 Comment2 ""
 Comment3 ""
 Comment4 ""
