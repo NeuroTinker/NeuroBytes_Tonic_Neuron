@@ -1,0 +1,36 @@
+Title,NeuroBytes Tonic Neuron,,,,,,,
+Revision,B,,,,,,,
+Date,2017-10-03,,,,,,,
+Generated,Wed 04 Oct 2017 11:10:39 AM MDT,,,,,,,
+Company,NeuroTinker, LLC,,,,,,
+Comment 1,License: GPL v3,,,,,,,
+Comment 2,,,,,,,,
+Comment 3,,,,,,,,
+Comment 4,,,,,,,,
+Total Parts,27,,,,,,,
+Total Unique Parts,16,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+Ref,Qty,Value,Link,Mfr,Mfr Part #,Package,RoHS,Subs Allowed
+C1 C4 ,2,1u,https://www.digikey.com/product-detail/en/taiyo-yuden/LMK107B7105KA-T/587-1242-2-ND/930594,Taiyo Yuden,LMK107B7105KA-T,C0603,Yes,Yes
+C5 C3 ,2,0u1,https://www.digikey.com/product-detail/en/taiyo-yuden/LMK105BJ104KV-F/587-1227-2-ND/930579,Taiyo Yuden,LMK105BJ104KV-F,C0402,Yes,Yes
+C2 ,1,10u,https://www.digikey.com/product-detail/en/taiyo-yuden/EMK316B7106KL-TD/587-2395-2-ND/2178914,Taiyo Yuden,EMK316B7106KL-TD,C1206,Yes,Yes
+D1 ,1,LED_RABG,https://www.digikey.com/product-detail/en/sunled/XZMDKCBDDG45S-9/1497-1257-2-ND/4902045,SunLED,XZMDKCBDDG45S-9,SMT,Yes,No
+P2 P3 P1 ,3,CONN_01X04,https://www.digikey.com/product-detail/en/jst-sales-america-inc/SM04B-GHS-TB-LF-SN/455-1566-2-ND/807788,JST,SM04B-GHS-TB(LF)(SN),SMT,Yes,No
+P4 ,1,JST_GH_5-pos,https://www.digikey.com/product-detail/en/jst-sales-america-inc/SM05B-GHS-TB-LF-SN/455-1567-2-ND/807789,JST,SM05B-GHS-TB(LF)(SN),SMT,Yes,No
+Q1 Q2 Q3 ,3,Q_NPN_BEC,https://www.digikey.com/product-detail/en/micro-commercial-co/MMBT3904-TP/MMBT3904TPMSTR-ND/717280,Micro Commercial Co,MMBT3904-TP,SOT23-3,Yes,Yes
+R4 ,1,JMP,https://www.digikey.com/product-detail/en/yageo/RC0402JR-070RL/311-0.0JRTR-ND/726406,Yageo,RC0402JR-070RL,R0402,Yes,Yes
+R3 R2 ,2,470k,https://www.digikey.com/product-detail/en/yageo/RC0402FR-07470KL/311-470KLRTR-ND/726618,Yageo,RC0402FR-07470KL ,R0402,Yes,Yes
+R1 ,1,150,https://www.digikey.com/product-detail/en/yageo/RC0402FR-07150RL/311-150LRCT-ND/729490,Yageo,RC0402FR-07150RL,R0402,Yes,Yes
+R5 R6 ,2,100,https://www.digikey.com/product-detail/en/yageo/RC0402FR-07100RL/311-100LRTR-ND/726527,Yageo,RC0402FR-07100RL,R0402,Yes,Yes
+R7 R8 R9 ,3,1k,https://www.digikey.com/product-detail/en/yageo/RC0402FR-071KL/311-1.00KLRTR-ND/726513,Yageo,RC0402FR-071KL,R0402,Yes,Yes
+SW1 ,1,SW_PUSH,https://www.digikey.com/product-detail/en/e-switch/TL3330AF130QG/EG4388TR-ND/1426835,E-Switch,TL3330AF130QG,SMT,Yes,No
+U2 ,1,LD3985G33R,https://www.digikey.com/product-detail/en/on-semiconductor/NCP114BSN330T1G/NCP114BSN330T1GOSTR-ND/6560606,ON Semiconductor,NCP114BSN330T1G,SOT-23-5,Yes,Yes
+U1 ,1,STM32L011Gx,http://www.mouser.com/ProductDetail/STMicroelectronics/STM32L011G4U6/?qs=sGAEpiMZZMuoKKEcg8mMKFZaGHZhaFFC%252b5Ex1OjcSxhBnExI6VEL3Q%3d%3d,ST Microelectronics,STM32L011G4U6,28-UFQFN,Yes,No
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+,,,,,,,,
+BOM made with KICAD_BOM_WIZARD (https://github.com/HashDefineElectronics/KiCad_BOM_Wizard.git),,,,,,,,
+Generated Wed 04 Oct 2017 11:10:39 AM MDT,,,,,,,,
