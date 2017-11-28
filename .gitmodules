@@ -4,3 +4,6 @@
 [submodule "libopencm3"]
 	path = libopencm3
 	url = https://github.com/NeuroTinker/libopencm3
+[submodule "FIRMWARE/common"]
+	path = FIRMWARE/common
+	url = https://www.github.com/neurotinker/NeuroBytes_Common
