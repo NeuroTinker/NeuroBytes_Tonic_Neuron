@@ -142,8 +142,10 @@ int main(void)
 					setLED(0,200,0);
 				}
 			}
-			
 		
+			if (neuron.leaky_current < 1000){
+				setLED(0,100,neuron.leaky_current / 5);
+			}
 		}
 	}
 }

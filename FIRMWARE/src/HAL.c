@@ -10,6 +10,7 @@ volatile uint8_t main_tick = 0;
 volatile uint8_t tick = 0;
 volatile uint8_t read_tick = 0;
 volatile uint32_t main_tick_count = 0;
+volatile uint8_t comms_tick = 0;
 
 void clock_setup(void)
 {
@@ -62,12 +63,16 @@ void sys_tick_handler(void)
 		tick = 0;
 	}
 
-	readInputs();
-	
-	if (++read_tick >= 3){
-		write();
-		read_tick = 0;
+	if (++comms_tick == 3){
+		readInputs();
+			
+		if (++read_tick >= 3){
+			write();
+			read_tick = 0;
+		}
+		comms_tick = 0;
 	}
+	
 }
 
 void gpio_setup(void)
