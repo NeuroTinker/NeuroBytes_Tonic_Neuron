@@ -245,7 +245,7 @@ void write()
         Pop 1-bit off the write_buffer and write it to corresponding output pins
     */
     uint8_t i;
-    if (write_buffer.write_count == 33){
+    if (write_buffer.write_count == 5){
         // Message is done being written. Move to next message in the buffer.
         switch (write_buffer.current_buffer){
             case DOWNSTREAM_BUFF:

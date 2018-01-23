@@ -37,6 +37,7 @@ int main(void)
 	uint16_t	current_fire_time = 0;
 	uint16_t	fire_delay_time = 0;
 	uint8_t		fire_flag = 0;
+	uint8_t		fire_tick = 0;
 
 /*
 	button debounce variables
@@ -70,7 +71,7 @@ int main(void)
 			// send a downstream ping every SEND_PING_TIME ticks
 			if (send_ping_time++ > SEND_PING_TIME){
 				// send downstream ping through axon
-				addWrite(DOWNSTREAM_BUFF, DEND_PING);
+				//addWrite(DOWNSTREAM_BUFF, DEND_PING);
 				send_ping_time = 0;
 			}
 
@@ -108,13 +109,26 @@ int main(void)
 				fire_delay_time -= 1;
 			} else if (fire_flag == 1){
 				fire_flag = 0;
-				addWrite(DOWNSTREAM_BUFF, PULSE_MESSAGE);
+				//addWrite(DOWNSTREAM_BUFF, PULSE_MESSAGE);
 			}
 
 			led = get_slider_position() * 5;
 			if (led > 0){ // >
 				neuron.leaky_current = led * 5 / 12;
 			}
+
+			if (fire_tick-- == 0){
+				addWrite(DOWNSTREAM_BUFF, PULSE_MESSAGE);
+				if (neuron.leaky_current < 100){
+					fire_tick = 70;
+				} else if (neuron.leaky_current < 300){
+					fire_tick = 70 - (neuron.leaky_current - 100) / 5; // leaky_current between 131 and 352
+					// fire_tick = (1, 46) ~=> 10ms to 520ms 
+				}else{
+					fire_tick = 15;
+				}
+			}
+
 			
 			/*
 			if (led > -1)
@@ -123,28 +137,31 @@ int main(void)
 			}
 			*/
 			
-			if (neuron.state == FIRE){
-				neuron.fire_time -= 1;
-				if (neuron.fire_time == 0){
-					neuron.state = INTEGRATE;
-				}
-				setLED(9600,9600,9600);
-			} else if (neuron.state == INTEGRATE){
-				if (neuron.potential > 10000){
-					setLED(200,0,0);
-				} else if (neuron.potential > 0){
-					setLED(neuron.potential / 50, 200 - (neuron.potential / 50), 0);
-				} else if (neuron.potential < -10000){
-					setLED(0,0, 200);
-				} else if (neuron.potential < 0){
-					setLED(0, 200 + (neuron.potential / 50), -1 * neuron.potential / 50);
-				} else{
-					setLED(0,200,0);
-				}
-			}
-		
-			if (neuron.leaky_current < 1000){
-				setLED(0,100,neuron.leaky_current / 5);
+			// if (neuron.state == FIRE){
+			// 	neuron.fire_time -= 1;
+			// 	if (neuron.fire_time == 0){
+			// 		neuron.state = INTEGRATE;
+			// 	}
+			// 	setLED(9600,9600,9600);
+			// } else if (neuron.state == INTEGRATE){
+			// 	if (neuron.potential > 10000){
+			// 		setLED(200,0,0);
+			// 	} else if (neuron.potential > 0){
+			// 		setLED(neuron.potential / 50, 200 - (neuron.potential / 50), 0);
+			// 	} else if (neuron.potential < -10000){
+			// 		setLED(0,0, 200);
+			// 	} else if (neuron.potential < 0){
+			// 		setLED(0, 200 + (neuron.potential / 50), -1 * neuron.potential / 50);
+			// 	} else{
+			// 		setLED(0,200,0);
+			// 	}
+			// }
+			if (neuron.leaky_current < 100){
+				setLED(0,100,0);
+			}else if (neuron.leaky_current < 300){
+				setLED((neuron.leaky_current - 100), 100, 0);
+			} else {
+				setLED(200,100,0);
 			}
 		}
 	}
