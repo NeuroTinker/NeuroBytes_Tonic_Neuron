@@ -7,7 +7,7 @@ volatile uint8_t touch_tick = 0;
 volatile int sensor0_time = 0;
 volatile int sensor1_time = 0;
 volatile uint8_t main_tick = 0;
-volatile uint8_t tick = 0;
+volatile uint16_t tick = 0;
 volatile uint8_t read_tick = 0;
 volatile uint32_t main_tick_count = 0;
 volatile uint8_t comms_tick = 0;
@@ -16,7 +16,7 @@ volatile uint16_t active_input_pins[NUM_INPUTS] = {[0 ... 3] = 0};
 
 volatile uint8_t active_input_tick[NUM_INPUTS] = {[0 ... 3] = 0};
 
-volatile uint16_t active_output_pins[NUM_INPUTS] = {[0 ... 3] = 0};
+volatile uint16_t active_output_pins[NUM_INPUTS] = {PIN_AXON1_EX, PIN_AXON2_EX, 0, 0};
 
 volatile uint32_t dendrite_pulses[NUM_DENDS] = {0};
 volatile uint8_t dendrite_pule_count = 0;
@@ -105,7 +105,7 @@ void sys_tick_handler(void)
 		main_tick = 1;
 		tick = 0;
 	}
-/*
+
 	if (tick % 3 == 0){
 		if (read_tick++ >= 2){
 			writeBit();
@@ -114,7 +114,7 @@ void sys_tick_handler(void)
 
 		readBit(read_tick);
 	}
-	*/
+	
 }
 
 void gpio_setup(void)
@@ -157,8 +157,10 @@ void gpio_setup(void)
 	gpio_clear(PORT_TOUCH0_RES, PIN_TOUCH0_RES);
 	gpio_clear(PORT_TOUCH1_RES, PIN_TOUCH1_RES);
 
-    // setAsInput(PORT_AXON1_IN, PIN_AXON1_IN);
-    // setAsInput(PORT_AXON2_IN, PIN_AXON2_IN);
+	gpio_mode_setup(PORT_IDENTIFY, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, PIN_IDENTIFY);
+
+    setAsInput(PORT_AXON1_IN, PIN_AXON1_IN);
+    setAsInput(PORT_AXON2_IN, PIN_AXON2_IN);
 	setAsInput(PORT_DEND1_IN, PIN_DEND1_IN);
     setAsInput(PORT_DEND1_EX, PIN_DEND1_EX);
     
@@ -241,17 +243,17 @@ void setAsOutput(uint32_t port, uint32_t pin)
 
 void exti2_3_isr(void)
 {
-	if ((EXTI_PR & PIN_DEND1_EX) != 0){
-		ACTIVATE_INPUT(2, PIN_DEND1_EX);
-		EXTI_PR |= PIN_DEND1_EX;
+	if ((EXTI_PR & PIN_DEND1_IN) != 0){
+		ACTIVATE_INPUT(3, PIN_DEND1_IN);
+		EXTI_PR |= PIN_DEND1_IN;
 	}
 }
 
 void exti4_15_isr(void)
 {
-    if ((EXTI_PR & PIN_DEND1_IN) != 0){
-		ACTIVATE_INPUT(3, PIN_DEND1_IN);
-		EXTI_PR |= PIN_DEND1_IN;
+	if ((EXTI_PR & PIN_DEND1_EX) != 0){
+		ACTIVATE_INPUT(2, PIN_DEND1_EX);
+		EXTI_PR |= PIN_DEND1_EX;
 	}else if ((EXTI_PR & PIN_AXON2_IN) != 0){
 		ACTIVATE_INPUT(1, PIN_AXON2_IN);
 		EXTI_PR |= PIN_AXON2_IN;

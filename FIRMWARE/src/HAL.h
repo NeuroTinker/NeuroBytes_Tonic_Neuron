@@ -50,8 +50,8 @@
 #define PIN_AXON2_EX		GPIO0
 #define PIN_AXON2_IN		GPIO7
 
-#define PIN_DEND1_IN		GPIO4
-#define PIN_DEND1_EX		GPIO3
+#define PIN_DEND1_IN		GPIO3
+#define PIN_DEND1_EX		GPIO4
 
 #define PORT_TOUCH0_SENSE	GPIOA
 #define PORT_TOUCH1_SENSE	GPIOA
@@ -93,7 +93,7 @@ extern volatile uint8_t touch_tick;
 extern volatile uint8_t main_tick;
 extern volatile uint8_t read_tick;
 extern volatile uint32_t main_tick_count;
-extern volatile uint8_t tick;
+extern volatile uint16_t tick;
 static const uint16_t gamma_lookup[1024];
 
 void systick_setup(void);
