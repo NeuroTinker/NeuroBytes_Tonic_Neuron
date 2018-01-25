@@ -315,9 +315,9 @@ void tim21_isr(void)
 
 void LEDFullWhite(void) 
 {
-	timer_set_oc_value(TIM2, TIM_OC1, 9600);
-	timer_set_oc_value(TIM2, TIM_OC2, 9600);
-	timer_set_oc_value(TIM2, TIM_OC3, 9600);
+	timer_set_oc_value(TIM2, TIM_OC1, 150);
+	timer_set_oc_value(TIM2, TIM_OC2, 150);
+	timer_set_oc_value(TIM2, TIM_OC3, 150);
 }
 
 void setLED(uint16_t r, uint16_t g, uint16_t b)
@@ -328,7 +328,7 @@ void setLED(uint16_t r, uint16_t g, uint16_t b)
 	}
 	else 
 	{
-		timer_set_oc_value(TIM2, TIM_OC2, 9600);
+		timer_set_oc_value(TIM2, TIM_OC2, 2047);
 	}
 
 	if (g <= 1023) 
@@ -337,7 +337,7 @@ void setLED(uint16_t r, uint16_t g, uint16_t b)
 	}
 	else
 	{
-		timer_set_oc_value(TIM2, TIM_OC1, 9600);
+		timer_set_oc_value(TIM2, TIM_OC1, 2047);
 	}
 
 	if (b <= 1023)
@@ -346,7 +346,7 @@ void setLED(uint16_t r, uint16_t g, uint16_t b)
 	}
 	else
 	{
-		timer_set_oc_value(TIM2, TIM_OC3, 9600);
+		timer_set_oc_value(TIM2, TIM_OC3, 2047);
 	}
 }
 
