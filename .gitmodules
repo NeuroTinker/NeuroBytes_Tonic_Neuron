@@ -7,3 +7,6 @@
 [submodule "FIRMWARE/common"]
 	path = FIRMWARE/common
 	url = https://www.github.com/neurotinker/NeuroBytes_Common
+[submodule "common"]
+	path = common
+	url = https://github.com/neurotinker/neurobytes_common

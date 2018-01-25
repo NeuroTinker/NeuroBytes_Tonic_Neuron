@@ -80,7 +80,7 @@ endef
 
 ifeq ($(strip $(DEVICE)),)
 # Old style, assume LDSCRIPT exists
-DEFS		+= -I$(OPENCM3_DIR)/include
+DEFS		+= -I$(OPENCM3_DIR)/include -Icommon -Isrc
 LDFLAGS		+= -L$(OPENCM3_DIR)/lib
 LDLIBS		+= -l$(LIBNAME)
 LDSCRIPT	?= $(BINARY).ld
@@ -192,7 +192,7 @@ print-%:
 
 %.elf %.map: $(OBJS) $(LDSCRIPT)
 	@#printf "  LD      $(*).elf\n"
-	$(Q)$(LD) $(TGT_LDFLAGS) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(*).elf
+	$(Q)$(LD) $(TGT_LDFLAGS) $(LDFLAGS) $(OBJS) $(LDLIBS) -o $(BIN_DIR)/main.elf
 
 %.o: %.c
 	@#printf "  CC      $(*).c\n"
