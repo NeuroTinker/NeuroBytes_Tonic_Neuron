@@ -159,7 +159,7 @@ void gpio_setup(void)
 
 	gpio_mode_setup(PORT_IDENTIFY, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, PIN_IDENTIFY);
 
-    setAsInput(PORT_AXON1_IN, PIN_AXON1_IN);
+    // setAsInput(PORT_AXON1_IN, PIN_AXON1_IN);
     setAsInput(PORT_AXON2_IN, PIN_AXON2_IN);
 	setAsInput(PORT_DEND1_IN, PIN_DEND1_IN);
     setAsInput(PORT_DEND1_EX, PIN_DEND1_EX);
@@ -257,10 +257,11 @@ void exti4_15_isr(void)
 	}else if ((EXTI_PR & PIN_AXON2_IN) != 0){
 		ACTIVATE_INPUT(1, PIN_AXON2_IN);
 		EXTI_PR |= PIN_AXON2_IN;
-	}else if ((EXTI_PR & PIN_AXON1_IN) != 0){
-		ACTIVATE_INPUT(0, PIN_AXON1_IN);
-		EXTI_PR |= PIN_DEND1_EX;
 	}
+	// else if ((EXTI_PR & PIN_AXON1_IN) != 0){
+	// 	ACTIVATE_INPUT(0, PIN_AXON1_IN);
+	// 	EXTI_PR |= PIN_DEND1_EX;
+	// }
 }
 
 void tim_setup(void)
