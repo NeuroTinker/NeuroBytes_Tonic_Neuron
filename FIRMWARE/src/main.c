@@ -71,7 +71,7 @@ int main(void)
 	systick_setup();
 	
 	for(;;){
-		if (main_tick == 1){ 
+		if (main_tick == 1 && pause_flag == 0){ 
 			main_tick = 0;
 			
 			// check to see if nid ping hasn't been received in last NID_PING_TIME ticks
