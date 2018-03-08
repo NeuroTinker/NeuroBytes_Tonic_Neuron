@@ -37,11 +37,11 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "NeuroBytes Tonic Neuron"
-Date "2017-10-03"
-Rev "B"
+Date "2018-02-12"
+Rev "C"
 Comp "NeuroTinker, LLC"
-Comment1 "License: GPL v3"
-Comment2 ""
+Comment1 "(C) 2018 Zach Fredin"
+Comment2 "License: CC-BY-SA 4.0"
 Comment3 ""
 Comment4 ""
 $EndDescr

@@ -2,8 +2,8 @@
 
   (general
     (links 78)
-    (no_connects 13)
-    (area 153.199999 60.917456 205.198036 79.062409)
+    (no_connects 8)
+    (area 137.25 41.8 234.107146 136.825)
     (thickness 1.6)
     (drawings 80)
     (tracks 418)
@@ -76,7 +76,7 @@
     (grid_origin 153.25 79)
     (visible_elements FFFFFF7F)
     (pcbplotparams
-      (layerselection 0x210fc_80000001)
+      (layerselection 0x00004_00000000)
       (usegerberextensions false)
       (excludeedgelayer true)
       (linewidth 0.100000)
@@ -99,7 +99,7 @@
       (mirror false)
       (drillshape 0)
       (scaleselection 1)
-      (outputdirectory /home/zach/Desktop/))
+      (outputdirectory ""))
   )
 
   (net 0 "")
