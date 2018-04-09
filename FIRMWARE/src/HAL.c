@@ -159,7 +159,7 @@ void gpio_setup(void)
 
 	gpio_mode_setup(PORT_IDENTIFY, GPIO_MODE_INPUT, GPIO_PUPD_PULLUP, PIN_IDENTIFY);
 
-    // setAsInput(PORT_AXON1_IN, PIN_AXON1_IN);
+    setAsInput(PORT_AXON1_IN, PIN_AXON1_IN);
     setAsInput(PORT_AXON2_IN, PIN_AXON2_IN);
 	setAsInput(PORT_DEND1_IN, PIN_DEND1_IN);
     setAsInput(PORT_DEND1_EX, PIN_DEND1_EX);
