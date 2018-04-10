@@ -16,8 +16,8 @@
 #define HAS_DENDS   true
 #define NUM_AXONS   2
 #define NUM_DENDS   1
-#define COMPLIMENTARY_I(i)  i + (i % 2) - ((i+1) % 2)
-#define IS_EXCITATORY(i)        (i % 2)
+#define COMPLIMENTARY_I(i)  (i - (i % 2) + ((i+1) % 2))
+#define IS_EXCITATORY(i)        ((i) % 2)
 
 #define LPUART1         LPUART1_BASE
 
@@ -46,12 +46,12 @@
 #define PORT_DEND1_IN		GPIOB
 
 #define PIN_AXON1_EX		GPIO6
-#define PIN_AXON1_IN	    GPIO6	
+#define PIN_AXON1_IN	    GPIO5	
 #define PIN_AXON2_EX		(GPIO0)
 #define PIN_AXON2_IN	    GPIO7	
 
-#define PIN_DEND1_IN		GPIO3
-#define PIN_DEND1_EX		GPIO4
+#define PIN_DEND1_IN		(GPIO3)
+#define PIN_DEND1_EX		(GPIO4)
 
 #define PORT_TOUCH0_SENSE	GPIOA
 #define PORT_TOUCH1_SENSE	GPIOA
