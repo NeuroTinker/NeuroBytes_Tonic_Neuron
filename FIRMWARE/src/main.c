@@ -11,7 +11,7 @@
 #include "comm.h"
 #include "neuron.h"
 
-#define DBG
+// #define DBG
 
 #define BLINK_TIME			40
 #define DATA_TIME			10
