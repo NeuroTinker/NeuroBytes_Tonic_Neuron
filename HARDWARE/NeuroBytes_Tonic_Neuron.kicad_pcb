@@ -99,7 +99,7 @@
       (mirror false)
       (drillshape 0)
       (scaleselection 1)
-      (outputdirectory Gerbers))
+      (outputdirectory ""))
   )
 
   (net 0 "")
@@ -1969,6 +1969,7 @@
   (module KiCad_Footprints:ZF_LED_RGB_SunLED_XZMDKCBDDG45S-9_cast (layer B.Cu) (tedit 58B5B64A) (tstamp 5954A920)
     (at 167.5 65.25 180)
     (path /5954B41D)
+    (attr smd)
     (fp_text reference D1 (at 0 -2.3 180) (layer Cmts.User)
       (effects (font (size 1 1) (thickness 0.15)))
     )
@@ -2397,6 +2398,7 @@
   (module KiCad_Footprints:ZF_SMD_SOT-353 (layer B.Cu) (tedit 59011580) (tstamp 5A722B28)
     (at 186.05 73 90)
     (path /5A72204A)
+    (attr smd)
     (fp_text reference U3 (at 0 -7.3 90) (layer B.SilkS) hide
       (effects (font (size 1 1) (thickness 0.15)) (justify mirror))
     )
