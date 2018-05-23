@@ -37,11 +37,11 @@ $Descr B 17000 11000
 encoding utf-8
 Sheet 1 1
 Title "NeuroBytes Tonic Neuron"
-Date "2017-10-03"
-Rev "B"
+Date "2018-02-12"
+Rev "C"
 Comp "NeuroTinker, LLC"
-Comment1 "License: GPL v3"
-Comment2 ""
+Comment1 "(C) 2018 Zach Fredin"
+Comment2 "License: CC-BY-SA 4.0"
 Comment3 ""
 Comment4 ""
 $EndDescr
@@ -1005,8 +1005,12 @@ F 0 "U3" H 6750 1800 60  0000 C CNN
 F 1 "RClamp0503F" H 6750 2600 60  0000 C CNN
 F 2 "KiCad_Footprints:ZF_SMD_SOT-353" H 6900 2050 60  0001 C CNN
 F 3 "" H 6900 2050 60  0001 C CNN
-F 4 "No" H 6750 2200 60  0001 C CNN "Subs Allowed"
-F 5 "Yes" H 6750 2200 60  0001 C CNN "RoHS"
+F 4 "Semtech Corporation" H 6750 2200 60  0001 C CNN "Mfr"
+F 5 "RCLAMP0503F.TCT" H 6750 2200 60  0001 C CNN "Mfr Part #"
+F 6 "5-TSSOP" H 6750 2200 60  0001 C CNN "Package"
+F 7 "https://www.digikey.com/product-detail/en/semtech-corporation/RCLAMP0503F.TCT/RCLAMP0503F.TCTTR-ND/5113629" H 6750 2200 60  0001 C CNN "Link"
+F 8 "No" H 6750 2200 60  0001 C CNN "Subs Allowed"
+F 9 "Yes" H 6750 2200 60  0001 C CNN "RoHS"
 	1    6750 2200
 	-1   0    0    1   
 $EndComp

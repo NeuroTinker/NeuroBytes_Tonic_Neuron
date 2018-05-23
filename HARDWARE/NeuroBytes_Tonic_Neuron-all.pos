@@ -1,0 +1,30 @@
+### Module positions - created on Wed May 23 17:27:12 2018 ###
+### Printed by Pcbnew version kicad 4.0.7-e2-6376~58~ubuntu14.04.1
+## Unit = mm, Angle = deg.
+## Side : All
+# Ref     Val               Package                     PosX       PosY       Rot  	Side
+C1        1u                C0603        		195.7500   -76.3000  270.0000  bottom
+C2        10u               C1206        		187.0000   -78.0000  180.0000  bottom
+C3        0u1               C0402    			188.8500   -76.1000   90.0000  bottom
+C4        1u                C0603        		190.6000   -76.3000  270.0000  bottom
+C5        0u1               C0402    			191.6000   -65.7000  180.0000  bottom
+P1        CONN_01X04        JST_GH_4POS           	156.1000   -65.4000  180.0000  bottom
+P2        CONN_01X04        JST_GH_4POS            	200.1000   -66.0000   45.0000  bottom
+P3        CONN_01X04        JST_GH_4POS            	200.1000   -74.0000  315.0000  bottom
+P4        JST_GH_5-pos      JST_GH_5POS       		182.9000   -63.9000   90.0000  bottom
+Q1        Q_NPN_BEC         SOT23-3L               	173.4000   -65.2000    0.0000  bottom
+Q2        Q_NPN_BEC         SOT23-3L               	176.4000   -65.2000    0.0000  bottom
+Q3        Q_NPN_BEC         SOT23-3L               	161.2000   -64.6000  270.0000  bottom
+R1        150               R0402        		171.5000   -65.9000   90.0000  bottom
+R2        470k              R0402        		186.0500   -74.6000    0.0000  bottom
+R3        470k              R0402        		186.0500   -71.4000    0.0000  bottom
+R4        JMP               R0402        		191.6000   -66.8000  180.0000  bottom
+R5        100               R0402        		171.5000   -63.5000  270.0000  bottom
+R6        100               R0402        		163.5000   -64.6000  270.0000  bottom
+R7        1k                R0402        		195.0000   -68.2000  225.0000  bottom
+R8        1k                R0402        		194.4000   -67.6000  225.0000  bottom
+R9        1k                R0402        		173.2000   -62.6000    0.0000  bottom
+SW1       SW_PUSH           4-SMT   			192.7000   -62.8500    0.0000  bottom
+U1        STM32L011Gx       UFQFPN28-050        	190.5000   -70.6000  315.0000  bottom
+U2        TLV70033_SOT23-5  SOT23-5L               	193.2000   -76.3000  270.0000  bottom
+## End
