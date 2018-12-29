@@ -315,9 +315,9 @@ void tim21_isr(void)
 
 void LEDFullWhite(void) 
 {
-	timer_set_oc_value(TIM2, TIM_OC1, 150);
-	timer_set_oc_value(TIM2, TIM_OC2, 150);
-	timer_set_oc_value(TIM2, TIM_OC3, 150);
+	timer_set_oc_value(TIM2, TIM_OC1, 200);
+	timer_set_oc_value(TIM2, TIM_OC2, 200);
+	timer_set_oc_value(TIM2, TIM_OC3, 200);
 }
 
 void setLED(uint16_t r, uint16_t g, uint16_t b)

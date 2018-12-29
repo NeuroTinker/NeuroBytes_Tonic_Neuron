@@ -55,6 +55,11 @@ int main(void)
 
 	message_t	message; // staging variable for constructing messages to send to the communications routine
 
+	int adj_slide_in = 0;
+	int prev_slide_in = 0;
+	int slide_in_buf[30];
+	uint8_t slide_in_buf_i;
+
 	// initialize neuron
 	neuron_t 	neuron;
 	neuronInit(&neuron);
@@ -222,6 +227,10 @@ int main(void)
 
 
 			slide_in = get_slider_position();
+			adj_slide_in = slide_in - prev_slide_in;
+			prev_slide_in = slide_in;
+			// something something
+
 			if (slide_in > 0){ // >
 				neuron.leaky_current = slide_in* 25 / 12;
 			}
